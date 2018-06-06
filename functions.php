@@ -1,8 +1,6 @@
 <?php
 
 // 自定义排序
-add_action('pre_get_posts', 'orderCustom');
-
 function orderCustom( $query ) {
     if ((is_home() || is_archive()) && $query->is_main_query()) {
       $query->set( 'meta_key', $_GET['order']);
@@ -11,6 +9,7 @@ function orderCustom( $query ) {
     }
     return $query;
 }
+add_action('pre_get_posts', 'orderCustom');
 
 // 自定义扩展标签
 add_action('init','createLanguage');
@@ -134,9 +133,6 @@ function createActors(){
         'labels' => $labels
     ));
 }
-// 字符串显示函数
-function customShow($str){
-    echo $str;
-}
+
 
 ?>

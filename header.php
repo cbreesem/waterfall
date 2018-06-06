@@ -29,7 +29,7 @@
 		if(count($terms)) foreach($terms as $term){ $arr[] = $term->name; }
 	}
 	?>
-<meta name="keywords" content="<?php !is_front_page() ? the_field('wf_keywords', 'option') : customShow(implode(' ',$arr)); ?>" />
+<meta name="keywords" content="<?php !is_front_page() ? the_field('wf_keywords', 'option') : _e(implode(' ',$arr)); ?>" />
 	<title><?php bloginfo('name'); ?> | <?php is_front_page() ? bloginfo('description') : wp_title(''); ?></title>
 	<!--[if lt IE 9]>
 	<script src="<?php echo get_template_directory_uri(); ?>/js/html5shiv.min.js"></script>
