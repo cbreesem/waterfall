@@ -134,5 +134,9 @@ function createActors(){
         'labels' => $labels
     ));
 }
+// 字符串显示函数
+function customShow($str){
+    echo $str;
+}
 
 ?>

@@ -2,7 +2,8 @@
 /**
  * 模板头部
  */
-?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <!--[if IE 7]>
 <html class="ie ie7" <?php language_attributes(); ?>>
 <![endif]-->
@@ -16,19 +17,31 @@
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width,initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="description" content="<?php is_front_page() ? bloginfo('description') : wp_title(''); ?>" />
-	<meta name="keywords" content="<?php is_front_page() ? bloginfo('description') : wp_title(''); ?> />
+	<?php
+	// 判断是否为首页
+	if(is_front_page()){
+	}
+	?>
+<meta name="description" content="<?php is_front_page() ? bloginfo('description') : wp_title(''); ?>"/>
+	<?php
+	if(is_front_page()){ // 判断是否为首页
+		$terms = get_the_terms($id, 'label'); // 输出文章的关键字
+		if(count($terms)) foreach($terms as $term){ $arr[] = $term->name; }
+	}
+	?>
+<meta name="keywords" content="<?php !is_front_page() ? bloginfo('keywords') : customShow(implode(' ',$arr)); ?>" />
 	<title><?php bloginfo('name'); ?> | <?php is_front_page() ? bloginfo('description') : wp_title(''); ?></title>
-	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
-	<?php wp_head(); ?>
 	<!--[if lt IE 9]>
 	<script src="<?php echo get_template_directory_uri(); ?>/js/html5shiv.min.js"></script>
 	<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/respond.min.js"></script>
 	<![endif]-->
-</head>
 
+	<?php if(get_field('wf_statistics','option')) the_field('wf_statistics', 'option'); ?>
+	<?php if(get_field('wf_baidu_push','option')) the_field('wf_baidu_push', 'option'); ?>
+
+</head>
 <body <?php body_class(); ?>>
-	<div class="menu-block <?php if(get_field('hide_widgets_under_menu', 'option') == TRUE) echo 'hidden-on-smaller-screens'; ?>">
+	<div class="menu-block">
 	<?php if(get_current_menu_position() == "top"): ?>
 	<?php if(get_current_menu_style() == 'v2'){ ?>
 		<div class="menu-inner-w">
