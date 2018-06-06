@@ -1,0 +1,7 @@
+备注文件
+bloginfo('charset')  博客字符集
+language_attributes() 主页语言
+get_field() 获取某字段的值
+is_home() 是否为首页
+is_front_page() 是否为首页
+get_template_directory_uri() 获取模板目录地址

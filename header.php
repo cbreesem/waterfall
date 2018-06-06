@@ -13,11 +13,11 @@
 <html <?php language_attributes(); ?>>
 <!--<![endif]-->
 <head>
-    <meta charset="<?php bloginfo( 'charset' ); ?>">
+    <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width,initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="description" content="爱看电影网关注提供720p高清、1080p高清、蓝光原盘高清、高清3d高清、最新热门磁力链迅雷下载网站，是下载了解电影天堂！" />
-	<meta name="keywords" content="电影天堂、高清电影下载、1080p高清、高清电影、720p、1080p、蓝光原盘、磁力链、电影下载" />
+	<meta name="description" content="<?php is_front_page() ? bloginfo('description') : wp_title(''); ?>" />
+	<meta name="keywords" content="<?php is_front_page() ? bloginfo('description') : wp_title(''); ?> />
 	<title><?php bloginfo('name'); ?> | <?php is_front_page() ? bloginfo('description') : wp_title(''); ?></title>
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 	<?php wp_head(); ?>
