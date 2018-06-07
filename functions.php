@@ -134,5 +134,127 @@ function createActors(){
     ));
 }
 
+add_action('admin_menu', 'registerCustomMenu');
+function registerCustomMenu() {
+    add_menu_page('WaterFall主题设置', '主题设置', 'administrator', 'waterfall', 'waterfall','',100);
+    // seo设置、备案号设置
+    add_submenu_page('waterfall', '基础设置', '基础设置', 'administrator','sysSetup', 'sysSetup');
+    //菜单方向：左、上、右  上--菜单风格：一行、两行
+    // 导航、页脚设置、导航设置、
+    add_submenu_page('waterfall', '页面设置', '页面设置', 'administrator','pageSetup', 'pageSetup');
+}
+function waterfall(){
+    echo '<div class="wrap">
+        <h1>主题设置</h1>
+        <div id="message" class="updated"><p>本主题是一个基于瀑布流的自适应的主题，可应用于各种形式的网站，并且对搜索引擎友好。</p></div>
 
+        <h2 class="title">SEO设置</h2>
+        <p>设置网站关键字及备注有利于搜索引擎的收录</p>
+        <form method="post" action="options.php">
+            <table class="form-table">
+                <tbody>
+                    <tr>
+                        <th scope="row"><label for="default_category">关键字</label></th>
+                        <td><input type="text" name="wf_keyworld" class="regular-text code"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="default_post_format">网站备注</label></th>
+                        <td><input type="text" name="wf_description" class="regular-text code"></td></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="default_post_format">工信部备案号</label></th>
+                        <td><input type="text" name="wf_beian" class="regular-text code"></td></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="default_post_format">公安部备案号</label></th>
+                        <td><input type="text" name="wf_beian" class="regular-text code"></td></td>
+                    </tr>
+                </tbody>
+            </table>
+        <h2 class="title">设置统计代码</h2>
+        <p>把统计网站的代码贴在下输入框，可记录网站访问记录</p>
+        <textarea name="wf_statistics" id="ping_sites" class="large-text code" rows="3"></textarea>
+
+        <h2 class="title">百度自动推送</h2>
+        <p>把百度自动推送的代码贴在下输入框，在游客访问时可自动将页面递交给百度收录</p>
+        <textarea name="wf_statistics" id="ping_sites" class="large-text code" rows="3"></textarea>
+        <p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="保存更改"></p>
+        </form>
+    </div>';
+}
+function sysSetup(){
+    echo '<div class="wrap">
+        <h1>基础设置</h1>
+        <h2 class="title">导航设置</h2>
+        <p>菜单位置及侧栏位置开关</p>
+        <form method="post" action="options.php">
+            <table class="form-table">
+                <tbody>
+                    <tr>
+                        <th scope="row"><label for="default_category">菜单位置</label></th>
+                        <td><select id="acf-field-sidebar_position" class="select" name="wf_menu_position">
+                            <option value="left">左</option>
+                            <option value="right" selected="selected">右</option>
+                            <option value="top">上</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="default_post_format">侧栏位置</label></th>
+                        <td><select id="acf-field-sidebar_position" class="select" name="wf_sidebar_position">
+                            <option value="left">左</option>
+                            <option value="right" selected="selected">右</option>
+                            <option value="none">不显示</option>
+                        </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="default_post_format">在首页是否显示侧栏</label></th>
+                        <td><input type="text" name="wf_beian" class="regular-text code"></td></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="default_post_format">小页面是否显示侧栏</label></th>
+                        <td><input type="text" name="wf_beian" class="regular-text code"></td></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="default_post_format">是否显示精选内容</label></th>
+                        <td><input type="text" name="wf_description" class="regular-text code"></td></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="default_post_format">精选内容风格形式</label></th>
+                        <td><input type="text" name="wf_beian" class="regular-text code"></td></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="default_post_format">分页形式</label></th>
+                        <td>无限滚动、无限滚动与按钮、分页链接、默认链接<input type="text" name="wf_beian" class="regular-text code"></td></td>
+                    </tr>
+                </tbody>
+            </table>
+        
+        <h2 class="title">页脚说明</h2>
+        <textarea name="wf_footer" id="ping_sites" class="large-text code" rows="3"></textarea>
+        <p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="保存更改"></p>
+        </form>
+    </div>';
+}
+function pageSetup(){
+    echo '<div class="wrap">
+        <h1>页面设置</h1>
+        <h2 class="title">首页设置</h2>
+        <form method="post" action="options.php">
+            <table class="form-table">
+                <tbody>
+                    <tr>
+                        <th scope="row"><label for="default_category">页面显示元素</label></th>
+                        <td>分享、分类、标题、摘录、发布日期、计数器、作者<input type="text" name="wf_keyworld" class="regular-text code"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="default_post_format">帖子摘录的长度</label></th>
+                        <td><input type="text" name="wf_beian" class="regular-text code"></td></td>
+                    </tr>
+                </tbody>
+            </table>
+        <p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="保存更改"></p>
+        </form>
+    </div>';
+}
 ?>
