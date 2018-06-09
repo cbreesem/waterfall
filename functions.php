@@ -162,7 +162,7 @@ function waterfall(){
                 <tbody>
                     <tr>
                         <th scope="row"><label for="default_category">关键字</label></th>
-                        <td><input type="text" name="wf_keyworld" class="regular-text code" value="'.get_option('wf_keyworld').'"></td>
+                        <td><input type="text" name="wf_keywords" class="regular-text code" value="'.get_option('wf_keywords').'"></td>
                     </tr>
                     <tr>
                         <th scope="row"><label for="default_post_format">网站备注</label></th>
@@ -278,4 +278,24 @@ function pageSetup(){
         </form>
     </div>';
 }
+
+//移除顶部多余信息
+remove_action('wp_head', 'index_rel_link');//当前文章的索引
+remove_action('wp_head', 'feed_links_extra', 3);// 额外的feed,例如category, tag页
+remove_action('wp_head', 'start_post_rel_link', 10, 0);// 开始篇
+remove_action('wp_head', 'parent_post_rel_link', 10, 0);// 父篇
+remove_action('wp_head', 'adjacent_posts_rel_link', 10, 0); // 上、下篇.
+remove_action('wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0 );//rel=pre
+remove_action('wp_head', 'wp_shortlink_wp_head', 10, 0 );//rel=shortlink
+remove_action('wp_head', 'rel_canonical' );
+wp_deregister_script('l10n');
+
+remove_action('wp_head','wlwmanifest_link');//移除head中的rel="wlwmanifest"
+remove_filter('the_content', 'wptexturize');//禁用半角符号自动转换为全角
+remove_action('wp_head', array($wp_widget_factory->widgets['WP_Widget_Recent_Comments'], 'recent_comments_style'));
+remove_action('wp_head', 'wp_generator' ); //去除版本信息
+remove_action('wp_head', 'rsd_link' );//清除离线编辑器接口
+remove_action('wp_head', 'feed_links',2 );
+remove_action('wp_head', 'feed_links_extra',3 );//清除feed信息
+
 ?>
