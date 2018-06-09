@@ -37,8 +37,8 @@
 </head>
 <body <?php body_class(); ?>>
 	<div class="menu-block">
-	<?php if(get_current_menu_position() == "top"): ?>
-	<?php if(get_current_menu_style() == 'v2'){ ?>
+	<?php if(get_option('wf_menu_position') == "top"): //如果是顶部菜单 ?>
+	<?php if(get_current_menu_style() == 'v2'){ //判断菜单版本 ?>
 		<div class="menu-inner-w">
 			<div class="logo">
 				<a href="<?php echo esc_url(home_url('/')); ?>">
@@ -46,7 +46,7 @@
 						<img src="<?php the_field('logo_image', 'option'); ?>" alt="">
 					<?php endif; ?>
 					<?php if(get_field('logo_text', 'option')): ?>
-						<span><?php the_field('logo_text', 'option'); ?></span>
+						<span><?php bloginfo('name'); ?></span>
 					<?php endif; ?>
 				</a>
 			</div>
@@ -87,8 +87,6 @@
 			<?php } ?>
 
 		<?php else: ?>
-
-
 			<div class="logo">
 				<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
 					<?php if(get_field('logo_image', 'option')): ?>
@@ -102,34 +100,17 @@
 			<?php if(get_field('search_form_position', 'option') == 'above_menu') get_search_form(); ?>
 
 			<div class="divider"></div>
-
 			<?php wp_nav_menu(array('theme_location'  => 'side_menu', 'fallback_cb' => false, 'container_class' => 'os_menu')); ?>
-
-
-
 			<?php if(get_field('search_form_position', 'option') == 'under_menu') get_search_form(); ?>
-
-
-
 			<div class="divider"></div>
-
 			<?php if(get_field('search_form_position', 'option') == 'above_social') get_search_form(); ?>
-
-
 			<?php if( function_exists('zilla_social') ) zilla_social(); ?>
-
-
 			<?php if(get_field('search_form_position', 'option') == 'under_social') get_search_form(); ?>
-
-
-
 			<?php if ( is_active_sidebar( 'sidebar-2' ) ) : ?>
 				<div class="under-menu-sidebar-wrapper">
 						<?php dynamic_sidebar( 'sidebar-2' ); ?>
 				</div>
 			<?php endif; ?>
-
-
 		<?php endif; ?>
 	</div>
 	<div class="menu-toggler-w">
