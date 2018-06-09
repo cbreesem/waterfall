@@ -17,27 +17,22 @@
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width,initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<?php
-	// 判断是否为首页
-	// if(is_front_page()){
-	// }
-	?>
-<meta name="description" content="<?php is_front_page() ? the_field('wf_description', 'option') : wp_title(''); ?>"/>
+	<meta name="description" content="<?php is_front_page() ? _e(get_option('wf_description')) : wp_title(''); ?>"/>
 	<?php
 	if(is_front_page()){ // 判断是否为首页
 		$terms = get_the_terms($id, 'label'); // 输出文章的关键字
 		if(count($terms)) foreach($terms as $term){ $arr[] = $term->name; }
 	}
 	?>
-<meta name="keywords" content="<?php is_front_page() ? the_field('wf_keywords', 'option') : _e(implode(' ',$arr)); ?>" />
+<meta name="keywords" content="<?php is_front_page() ? _e(get_option('wf_keyworld')) : _e(implode(' ',$arr)); ?>" />
 	<title><?php bloginfo('name'); ?> | <?php is_front_page() ? bloginfo('description') : wp_title(''); ?></title>
 	<!--[if lt IE 9]>
 	<script src="<?php echo get_template_directory_uri(); ?>/js/html5shiv.min.js"></script>
 	<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/respond.min.js"></script>
 	<![endif]-->
 
-	<?php if(get_field('wf_statistics','option')) the_field('wf_statistics', 'option'); ?>
-	<?php if(get_field('wf_baidu_push','option')) the_field('wf_baidu_push', 'option'); ?>
+<?php _e(str_replace('\\','',get_option('wf_statistics'))); ?>
+<?php _e(str_replace('\\','',get_option('wf_baidu_push'))); ?>
 
 </head>
 <body <?php body_class(); ?>>
