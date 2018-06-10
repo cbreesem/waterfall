@@ -152,6 +152,8 @@ function waterfall(){
     }else{
         $update = '<div id="message" class="updated"><p>本主题是一个基于瀑布流的自适应的主题，可应用于各种形式的网站，并且对搜索引擎友好。</p></div>';
     }
+    //加载upload.js文件   
+    wp_enqueue_script('waterfall', get_bloginfo( 'stylesheet_directory' ) . '/js/uppic.js');   
     //加载上传图片的js(wp自带)   
     wp_enqueue_script('thickbox');   
     //加载css(wp自带)   
@@ -166,8 +168,12 @@ function waterfall(){
                 <tbody>
                     <tr>
                         <th><label for="default_category">網站圖標</label></th>
-                        <td><input type="text" size="80"  name="wf_logo_image" id="ashu_logo" value="'.get_option('wf_logo_image').'"/>   
+                        <td><input type="text" name="wf_logo_image" id="wf_logo_image"  class="regular-text code" value="'.get_option('wf_logo_image').'"/>   
                         <input type="button" value="上传" class="ashu_bottom"/></td>
+                    </tr>
+                    <tr>
+                        <th><label for="default_category">網站名稱</label></th>
+                        <td><input type="text" name="wf_logo_text" class="regular-text code" value="'.get_option('wf_logo_text').'"/>   
                     </tr>
                     <tr>
                         <th scope="row"><label for="default_category">关键字</label></th>
@@ -196,23 +202,7 @@ function waterfall(){
         <textarea name="wf_baidu_push" id="ping_sites" class="large-text code" rows="3">'.get_option('wf_baidu_push').'</textarea>
         <p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="保存更改"></p>
         </form>
-    </div>
-    <script>
-    jQuery(document).ready(function() {   
-        //查找class为ashu_bottom的对象   
-        // jQuery(".ashu_bottom").click(function() {   
-            //获取它前面的一个兄弟元素   
-            // targetfield = jQuery(this).prev("input");
-            //  tb_show('', "media-upload.php?type=image&amp;TB_iframe=true");   
-            //  return false;   
-        // });   
-        window.send_to_editor = function(html) {   
-             imgurl = jQuery("img",html).attr("src");   
-             jQuery(targetfield).val(imgurl);   
-             tb_remove();   
-        }   
-    });
-    </script>';
+    </div>';
     
 }
 function sysSetup(){
@@ -236,6 +226,16 @@ function sysSetup(){
                             <option value="left">左</option>
                             <option value="right" selected="selected">右</option>
                             <option value="top">上</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="default_category">搜索位置</label></th>
+                        <td><select id="acf-field-sidebar_position" class="select" name="wf_search_position">
+                            <option value="above_menu" selected="selected">菜單上面</option>
+                            <option value="under_menu">菜單下面</option>
+                            <option value="above_social">Above Social Icons</option>
+                            <option value="under_social">Under Social Icons</option>
+                            <option value="no_show">不顯示搜索框</option>
                         </select></td>
                     </tr>
                     <tr>

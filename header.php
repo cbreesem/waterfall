@@ -42,10 +42,10 @@
 		<div class="menu-inner-w">
 			<div class="logo">
 				<a href="<?php echo esc_url(home_url('/')); ?>">
-					<?php if(get_field('logo_image', 'option')): ?>
-						<img src="<?php the_field('logo_image', 'option'); ?>" alt="">
+					<?php if(get_option('wf_logo_image')): ?>
+						<img src="<?php _e(get_option('wf_logo_image')); ?>" alt="">
 					<?php endif; ?>
-					<?php if(get_field('logo_text', 'option')): ?>
+					<?php if(get_option('wf_logo_image')): ?>
 						<span><?php bloginfo('name'); ?></span>
 					<?php endif; ?>
 				</a>
@@ -89,23 +89,23 @@
 		<?php else: ?>
 			<div class="logo">
 				<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
-					<?php if(get_field('logo_image', 'option')): ?>
-						<img src="<?php the_field('logo_image', 'option'); ?>" alt="">
+					<?php if(get_option('wf_logo_image')): ?>
+						<img src="<?php _e(get_option('wf_logo_image')); ?>" alt="<?php _e(get_option('wf_logo_text')); ?>" title="<?php _e(get_option('wf_logo_text')); ?>"/>
 					<?php endif; ?>
-					<?php if(get_field('logo_text', 'option')): ?>
-						<span><?php the_field('logo_text', 'option'); ?></span>
+					<?php if(get_option('wf_logo_text')): ?>
+						<span><?php _e(get_option('wf_logo_text')); ?></span>
 					<?php endif; ?>
 				</a>
 			</div>
-			<?php if(get_field('search_form_position', 'option') == 'above_menu') get_search_form(); ?>
+			<?php if(get_option('wf_search_position') == 'above_menu') get_search_form(); ?>
 
 			<div class="divider"></div>
 			<?php wp_nav_menu(array('theme_location'  => 'side_menu', 'fallback_cb' => false, 'container_class' => 'os_menu')); ?>
-			<?php if(get_field('search_form_position', 'option') == 'under_menu') get_search_form(); ?>
+			<?php if(get_option('wf_search_position') == 'under_menu') get_search_form(); ?>
 			<div class="divider"></div>
-			<?php if(get_field('search_form_position', 'option') == 'above_social') get_search_form(); ?>
+			<?php if(get_option('wf_search_position',) == 'above_social') get_search_form(); ?>
 			<?php if( function_exists('zilla_social') ) zilla_social(); ?>
-			<?php if(get_field('search_form_position', 'option') == 'under_social') get_search_form(); ?>
+			<?php if(get_option('wf_search_position') == 'under_social') get_search_form(); ?>
 			<?php if ( is_active_sidebar( 'sidebar-2' ) ) : ?>
 				<div class="under-menu-sidebar-wrapper">
 						<?php dynamic_sidebar( 'sidebar-2' ); ?>
