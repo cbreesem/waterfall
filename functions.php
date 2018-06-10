@@ -217,7 +217,7 @@ function sysSetup(){
         '.$update.'
         <h2 class="title">导航设置</h2>
         <p>菜单位置及侧栏位置开关</p>
-        <form method="post" action="options.php">
+        <form method="post" action="">
             <table class="form-table">
                 <tbody>
                     <tr>

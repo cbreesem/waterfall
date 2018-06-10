@@ -97,15 +97,14 @@
 					<?php endif; ?>
 				</a>
 			</div>
-			<?php if(get_option('wf_search_position') == 'above_menu') get_search_form(); ?>
-
+			<?php if(get_option('wf_search_position') == 'above_menu'){ get_search_form(); } ?>
 			<div class="divider"></div>
 			<?php wp_nav_menu(array('theme_location'  => 'side_menu', 'fallback_cb' => false, 'container_class' => 'os_menu')); ?>
-			<?php if(get_option('wf_search_position') == 'under_menu') get_search_form(); ?>
+			<?php if(get_option('wf_search_position') == 'under_menu'){ get_search_form(); }  ?>
 			<div class="divider"></div>
-			<?php if(get_option('wf_search_position',) == 'above_social') get_search_form(); ?>
+			<?php if(get_option('wf_search_position') == 'above_social'){ get_search_form(); } ?>
 			<?php if( function_exists('zilla_social') ) zilla_social(); ?>
-			<?php if(get_option('wf_search_position') == 'under_social') get_search_form(); ?>
+			<?php if(get_option('wf_search_position') == 'under_social'){ get_search_form(); } ?>
 			<?php if ( is_active_sidebar( 'sidebar-2' ) ) : ?>
 				<div class="under-menu-sidebar-wrapper">
 						<?php dynamic_sidebar( 'sidebar-2' ); ?>
