@@ -248,6 +248,15 @@ function sysSetup(){
                         </td>
                     </tr>
                     <tr>
+                        <th scope="row"><label for="default_post_format">移動設備是否顯示側欄</label></th>
+                        <td><select id="acf-field-sidebar_position" class="select" name="wf_show_sidebar_on_mobile">
+                            <option value="left">左</option>
+                            <option value="right" selected="selected">右</option>
+                            <option value="none">不显示</option>
+                        </select>
+                        </td>
+                    </tr>
+                    <tr>
                         <th scope="row"><label for="default_post_format">在首页是否显示侧栏</label></th>
                         <td><input type="text" name="wf_beian" class="regular-text code"></td></td>
                     </tr>

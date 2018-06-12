@@ -43,7 +43,7 @@
 			<div class="logo">
 				<a href="<?php echo esc_url(home_url('/')); ?>">
 					<?php if(get_option('wf_logo_image')): ?>
-						<img src="<?php _e(get_option('wf_logo_image')); ?>" alt="">
+						<img src="<?php _e(get_option('wf_logo_image')); ?>" alt="<?php _e(get_option('wf_logo_text')); ?>" title="<?php _e(get_option('wf_logo_text')); ?>">
 					<?php endif; ?>
 					<?php if(get_option('wf_logo_image')): ?>
 						<span><?php bloginfo('name'); ?></span>
@@ -66,7 +66,7 @@
 						<div class="logo">
 							<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
 							<?php if(get_option('wf_logo_image')): ?>
-								<img src="<?php _e(get_option('wf_logo_image')); ?>" alt="">
+								<img src="<?php _e(get_option('wf_logo_image')); ?>" alt="<?php _e(get_option('wf_logo_text')); ?>" title="<?php _e(get_option('wf_logo_text')); ?>">
 							<?php endif; ?>
 							<?php if(get_option('wf_logo_text')): ?>
 								<span><?php _e(get_option('wf_logo_text')); ?></span>
@@ -116,7 +116,7 @@
 			<i class="fa os-icon-bars"></i>
 			<span class="menu-toggler-label"><?php _e('Menu', 'pluto') ?></span>
 		</a>
-		<?php if(get_field('show_sidebar_on_mobile', 'option')){ ?>
+		<?php if(get_option('wf_show_sidebar_on_mobile')){ ?>
 			<a href="#" class="sidebar-toggler">
 				<i class="fa os-icon-bars"></i>
 				<span class="sidebar-toggler-label"><?php _e('Sidebar', 'pluto') ?></span>
