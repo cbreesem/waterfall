@@ -296,14 +296,22 @@ function sysSetup(){
 function pageSetup(){
     if(!empty($_POST)){
         foreach ($_POST as $key => $value) {
-            if($key != 'submit') update_option( $key, $value );
+            if($key == 'submit') continue;
+            if(is_array($value)){
+                echo $key.'-是數組-'.$value;
+                print_r($value);
+            }else{
+                echo $key.'-不是數組-'.$value;
+            }
+                
+                // update_option( $key, $value );
         }
         $update = '<div id="message" class="updated"><p>修改保存成功</p></div>';
     }
     echo '<div class="wrap">
         <h1>页面设置</h1>
         '.$update.'
-        <form method="post" action="options.php">
+        <form method="post" action="">
         <h2 class="title">首页设置</h2>
         <table class="form-table">
             <tbody>
