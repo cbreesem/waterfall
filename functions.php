@@ -249,32 +249,40 @@ function sysSetup(){
                     </tr>
                     <tr>
                         <th scope="row"><label for="default_post_format">移動設備是否顯示側欄</label></th>
-                        <td><select id="acf-field-sidebar_position" class="select" name="wf_show_sidebar_on_mobile">
-                            <option value="left">左</option>
-                            <option value="right" selected="selected">右</option>
-                            <option value="none">不显示</option>
-                        </select>
+                        <td><input type="radio" name="content" value="all" checked="checked" aria-describedby="all-content-desc" />顯示<input type="radio" name="content" value="all" checked="checked" aria-describedby="all-content-desc" />不顯示
                         </td>
                     </tr>
                     <tr>
                         <th scope="row"><label for="default_post_format">在首页是否显示侧栏</label></th>
-                        <td><input type="text" name="wf_beian" class="regular-text code"></td></td>
+                        <td><input type="radio" name="content" value="all" checked="checked" aria-describedby="all-content-desc" />顯示<input type="radio" name="content" value="all" checked="checked" aria-describedby="all-content-desc" />不顯示</td>
                     </tr>
                     <tr>
                         <th scope="row"><label for="default_post_format">小页面是否显示侧栏</label></th>
-                        <td><input type="text" name="wf_beian" class="regular-text code"></td></td>
+                        <td><input type="radio" name="content" value="all" checked="checked" aria-describedby="all-content-desc" />顯示<input type="radio" name="content" value="all" checked="checked" aria-describedby="all-content-desc" />不顯示</td>
                     </tr>
                     <tr>
                         <th scope="row"><label for="default_post_format">是否显示精选内容</label></th>
-                        <td><input type="text" name="wf_description" class="regular-text code"></td></td>
+                        <td><input type="radio" name="content" value="all" checked="checked" aria-describedby="all-content-desc" />顯示<input type="radio" name="content" value="all" checked="checked" aria-describedby="all-content-desc" />不顯示</td>
                     </tr>
                     <tr>
                         <th scope="row"><label for="default_post_format">精选内容风格形式</label></th>
-                        <td><input type="text" name="wf_beian" class="regular-text code"></td></td>
+                        <td><input type="radio" name="content" value="all" checked="checked" aria-describedby="all-content-desc" />顯示<input type="radio" name="content" value="all" checked="checked" aria-describedby="all-content-desc" />不顯示</td>
                     </tr>
                     <tr>
                         <th scope="row"><label for="default_post_format">分页形式</label></th>
-                        <td>无限滚动、无限滚动与按钮、分页链接、默认链接<input type="text" name="wf_beian" class="regular-text code"></td></td>
+                        <td><select id="acf-field-sidebar_position" class="select" name="wf_menu_position">
+                            <option value="left">无限滚动</option>
+                            <option value="right" selected="selected">无限滚动与按钮</option>
+                            <option value="top">分页链接</option>
+                            <option value="top">默认链接</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="default_post_format">菜單打開方式</label></th>
+                        <td><select id="acf-field-sidebar_position" class="select" name="wf_menu_position">
+                            <option value="left">點擊</option>
+                            <option value="right" selected="selected">滑過</option>
+                        </select></td>
                     </tr>
                 </tbody>
             </table>
@@ -295,20 +303,53 @@ function pageSetup(){
     echo '<div class="wrap">
         <h1>页面设置</h1>
         '.$update.'
-        <h2 class="title">首页设置</h2>
         <form method="post" action="options.php">
-            <table class="form-table">
-                <tbody>
-                    <tr>
-                        <th scope="row"><label for="default_category">页面显示元素</label></th>
-                        <td>分享、分类、标题、摘录、发布日期、计数器、作者<input type="text" name="wf_keyworld" class="regular-text code"></td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><label for="default_post_format">帖子摘录的长度</label></th>
-                        <td><input type="text" name="wf_beian" class="regular-text code"></td></td>
-                    </tr>
-                </tbody>
-            </table>
+        <h2 class="title">首页设置</h2>
+        <table class="form-table">
+            <tbody>
+                <tr>
+                    <th scope="row"><label for="default_category">页面显示元素</label></th>
+                    <td>
+                        <input id="acf-field-hide_from_index_posts" type="checkbox" class="checkbox" name="fields[field_53bf14d8cc1e9][]" value="social">分享
+                        <input id="acf-field-hide_from_index_posts" type="checkbox" class="checkbox" name="fields[field_53bf14d8cc1e9][]" value="social">分类
+                        <input id="acf-field-hide_from_index_posts" type="checkbox" class="checkbox" name="fields[field_53bf14d8cc1e9][]" value="social">标题
+                        <input id="acf-field-hide_from_index_posts" type="checkbox" class="checkbox" name="fields[field_53bf14d8cc1e9][]" value="social">摘录
+                        <input id="acf-field-hide_from_index_posts" type="checkbox" class="checkbox" name="fields[field_53bf14d8cc1e9][]" value="social">发布日期
+                        <input id="acf-field-hide_from_index_posts" type="checkbox" class="checkbox" name="fields[field_53bf14d8cc1e9][]" value="social">计数器
+                        <input id="acf-field-hide_from_index_posts" type="checkbox" class="checkbox" name="fields[field_53bf14d8cc1e9][]" value="social">作者</td>
+                </tr>
+                <tr>
+                    <th scope="row"><label for="default_post_format">帖子摘录的长度</label></th>
+                    <td><input type="text" name="wf_beian" class="regular-text code"></td></td>
+                </tr>
+            </tbody>
+        </table>
+        <h2 class="title">類表頁设置</h2>
+        <table class="form-table">
+            <tbody>
+                <tr>
+                    <th scope="row"><label for="default_category">页面显示元素</label></th>
+                    <td>分享、分类、标题、摘录、发布日期、计数器、作者<input type="text" name="wf_keyworld" class="regular-text code"></td>
+                </tr>
+                <tr>
+                    <th scope="row"><label for="default_post_format">帖子摘录的长度</label></th>
+                    <td><input type="text" name="wf_beian" class="regular-text code"></td></td>
+                </tr>
+            </tbody>
+        </table>
+        <h2 class="title">內容頁设置</h2>
+        <table class="form-table">
+            <tbody>
+                <tr>
+                    <th scope="row"><label for="default_category">文章展示寬度</label></th>
+                    <td>分享、分类、标题、摘录、发布日期、计数器、作者<input type="text" name="wf_keyworld" class="regular-text code"></td>
+                </tr>
+                <tr>
+                    <th scope="row"><label for="default_post_format">帖子摘录的长度</label></th>
+                    <td><input type="text" name="wf_beian" class="regular-text code"></td></td>
+                </tr>
+            </tbody>
+        </table>
         <p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="保存更改"></p>
         </form>
     </div>';
