@@ -1,5 +1,6 @@
 <?php
 
+require_once get_template_directory() . '/inc/shortCodes.php';
 // 自定义排序
 function orderCustom( $query ) {
     if ((is_home() || is_archive()) && $query->is_main_query()) {
@@ -158,7 +159,7 @@ function widgetsInit() {
       'after_title'   => '</h1>',
     ) );
     register_sidebar( array(
-      'name'          => __( 'Advert on Top', 'pluto' ),
+      'name'          => __( '顶部栏目', 'pluto' ),
       'id'            => 'sidebar-3',
       'description'   => __( 'Sidebar which appears on the top of the page.', 'pluto' ),
       'before_widget' => '<aside id="%1$s" class="widget %2$s">',
@@ -312,14 +313,6 @@ function sysSetup(){
                         <td><input type="radio" name="content" value="all" checked="checked" aria-describedby="all-content-desc" />顯示<input type="radio" name="content" value="all" checked="checked" aria-describedby="all-content-desc" />不顯示</td>
                     </tr>
                     <tr>
-                        <th scope="row"><label for="default_post_format">是否显示精选内容</label></th>
-                        <td><input type="radio" name="content" value="all" checked="checked" aria-describedby="all-content-desc" />顯示<input type="radio" name="content" value="all" checked="checked" aria-describedby="all-content-desc" />不顯示</td>
-                    </tr>
-                    <tr>
-                        <th scope="row"><label for="default_post_format">精选内容风格形式</label></th>
-                        <td><input type="radio" name="content" value="all" checked="checked" aria-describedby="all-content-desc" />顯示<input type="radio" name="content" value="all" checked="checked" aria-describedby="all-content-desc" />不顯示</td>
-                    </tr>
-                    <tr>
                         <th scope="row"><label for="default_post_format">分页形式</label></th>
                         <td><select id="acf-field-sidebar_position" class="select" name="wf_menu_position">
                             <option value="left">无限滚动</option>
@@ -385,11 +378,28 @@ function pageSetup(){
                 </tr>
                 <tr>
                     <th scope="row"><label for="default_post_format">帖子摘录的长度</label></th>
-                    <td><input type="text" name="wf_beian" class="regular-text code"></td></td>
+                    <td><input type="text" name="wf_beian"></td></td>
+                </tr>
+                <tr>
+                    <th scope="row"><label for="default_post_format">是否显示顶部栏目</label></th>
+                    <td><input type="radio" name="wf_show_topbar" value="1" checked="checked"/>顯示
+                    <input type="radio" name="wf_show_topbar" value="0" checked="0" />不顯示</td>
+                </tr>
+                <tr>
+                    <th scope="row"><label for="default_post_format">是否显示精选内容</label></th>
+                    <td><input type="radio" name="wf_show_featured" value="1" />顯示
+                    <input type="radio" name="wf_show_featured" value="0" />不顯示</td>
+                </tr>
+                <tr>
+                    <th scope="row"><label for="default_post_format">显示精选方式</label></th>
+                    <td><select class="select" name="wf_featured_type">
+                        <option value="compact">紧凑的</option>
+                        <option value="full" selected="selected">全尺寸</option>
+                    </select></td>
                 </tr>
             </tbody>
         </table>
-        <h2 class="title">類表頁设置</h2>
+        <h2 class="title">列表頁设置</h2>
         <table class="form-table">
             <tbody>
                 <tr>

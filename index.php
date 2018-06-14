@@ -17,14 +17,61 @@
 	}
 	if (have_posts())
 ?>
-	<?php os_the_primary_sidebar(true); ?>
+	<?php //os_the_primary_sidebar(true); ?>
 
 	<div class="main-content-i">
-		<?php require_once(get_template_directory() . '/inc/set-layout-vars.php') ?>
-		<?php require_once(get_template_directory() . '/inc/partials/featured-slider.php') ?>
+		<?php
+			// $template_type = str_replace('_', '-', get_field('archive_layout_type', 'option'));
+			// $template_type = str_replace('_', '-', 'page_masonry');
+			// echo $template_type;
+			// $facebook_likes = in_array('page_masonry', array("page_masonry_condensed_facebook", "page_masonry_simple_facebook")) ? true : false;
+			// $forse_fixed_height = (('page_masonry' == "page_masonry_condensed_fixed_height") || os_get_use_fixed_height_index_posts() == true) ? true : false;
+			// $layout_mode = (('page_masonry' == "page_masonry_condensed_fixed_height") || os_get_use_fixed_height_index_posts() == true) ? 'fitRows' : 'masonry';
+			// $template_part = (get_field('archive_layout_type', 'option') == "page_masonry") ? 'content' : 'v3-content';
+			
+			
+			// if(in_array('page_masonry', array('page_masonry_simple_facebook', 'page_masonry_simple'))){
+			//   $layout_type = 'v3-simple';
+			//   $isotope_class = 'v3 isotope-simple';
+			//   $forse_hide_element_read_more = true;
+			//   $forse_hide_element_date = true;
+			// }elseif(in_array('page_masonry', array('page_masonry', 'page_masonry_simple'))){
+			//   $layout_type = 'v1';
+			//   $isotope_class = 'v1';
+			// }else{
+			//   $layout_type = 'v3';
+			//   $isotope_class = 'v3 isotope-condensed';
+			// }
+			// echo 
+			// if('page_masonry' == 'page_masonry_condensed_with_author'){
+			//   $show_author_face = true;
+			//   $isotope_class.= ' isotope-with-author';
+			// }else{
+			//   $show_author_face = false;
+			// }
+		?>
+		<?php //require_once(get_template_directory() . '/inc/set-layout-vars.php') ?>
+		<?php
+		//精选内容开始
+		if(get_option('wf_show_featured')){
+			if(get_option('wf_featured_type') == 'compact'){
+				_e(do_shortcode('[os_featured_slider]'));
+			}else{
+				_e(do_shortcode('[os_featured_carousel]'));
+			}
+		}
+		?>
 		<div class="content side-padded-content">
-			<?php require_once(get_template_directory() . '/inc/partials/top-ad-sidebar.php') ?>
-				<div class="index-isotope <?php echo $isotope_class; ?>" data-layout-mode="<?php echo $layout_mode; ?>">
+		<?php
+		// 顶部栏目
+		if(is_active_sidebar('sidebar-3') && get_option('wf_show_topbar')){
+			echo '<div class="top-sidebar-wrapper">';
+			dynamic_sidebar('sidebar-3');
+			echo '</div>';
+		}
+		//内容开始
+		?>
+			<div class="index-isotope <?php echo $isotope_class; ?>" data-layout-mode="<?php echo $layout_mode; ?>">
 				<?php $os_current_box_counter = 1; $os_ad_block_counter = 0; ?>
 				<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 					<?php get_template_part( $template_part, get_post_format() ); ?>
