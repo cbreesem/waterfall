@@ -134,6 +134,57 @@ function createActors(){
     ));
 }
 
+/**
+ * Register Pluto widget areas.
+ */
+function widgetsInit() {
+    // require get_template_directory() . '/inc/widgets.php';
+    register_sidebar( array(
+      'name'          => __('主要侧栏'),
+      'id'            => 'sidebar-1',
+      'description'   => __('页面右边的侧栏'),
+      'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+      'after_widget'  => '</aside>',
+      'before_title'  => '<h1 class="widget-title">',
+      'after_title'   => '</h1>',
+    ) );
+    register_sidebar( array(
+      'name'          => __('菜单下栏目'),
+      'id'            => 'sidebar-2',
+      'description'   => __('Sidebar which appears under the menu'),
+      'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+      'after_widget'  => '</aside>',
+      'before_title'  => '<h1 class="widget-title">',
+      'after_title'   => '</h1>',
+    ) );
+    register_sidebar( array(
+      'name'          => __( 'Advert on Top', 'pluto' ),
+      'id'            => 'sidebar-3',
+      'description'   => __( 'Sidebar which appears on the top of the page.', 'pluto' ),
+      'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+      'after_widget'  => '</aside>',
+      'before_title'  => '<h1 class="widget-title">',
+      'after_title'   => '</h1>',
+    ) );
+  }
+add_action('widgets_init', 'widgetsInit');
+
+function os_the_primary_sidebar($masonry=false){
+    // $condition = $masonry ? (os_get_show_sidebar_on_masonry() == true) : true;
+    $condition = true;
+    if((get_field('sidebar_position', 'option') != "none") && is_active_sidebar( 'sidebar-1' ) && $condition){
+        $sidebar = dynamic_sidebar('sidebar-1');
+        echo '<div class="primary-sidebar-wrapper">
+            <div id="primary-sidebar" class="primary-sidebar widget-area" role="complementary">
+                '.$sidebar.'
+            </div>
+        </div>';
+    }
+}
+  
+/*
+*  后台管理菜单及页面函数
+*/  
 add_action('admin_menu', 'registerCustomMenu');
 function registerCustomMenu() {
     add_menu_page('WaterFall主题设置', '主题设置', 'administrator', 'waterfall', 'waterfall','',100);
@@ -297,17 +348,28 @@ function pageSetup(){
     if(!empty($_POST)){
         foreach ($_POST as $key => $value) {
             if($key == 'submit') continue;
-            if(is_array($value)){
-                echo $key.'-是數組-'.$value;
-                print_r($value);
-            }else{
-                echo $key.'-不是數組-'.$value;
-            }
-                
-                // update_option( $key, $value );
+            $value = is_array($value) ? serialize($value) : $value;
+            update_option($key, $value);
         }
+        if(!in_array('wf_show_element',array_keys($_POST))) update_option('wf_show_element', '');
         $update = '<div id="message" class="updated"><p>修改保存成功</p></div>';
     }
+    $wf_show_element = unserialize(get_option('wf_show_element'));
+    $is_select = in_array('share',$wf_show_element) ? 'checked="checked"' : '';
+    $select = '<input type="checkbox" name="wf_show_element[]" value="share" '.$is_select.'>分享 ';
+    $is_select = in_array('category',$wf_show_element) ? 'checked="checked"' : '';
+    $select .= '<input type="checkbox" name="wf_show_element[]" value="category" '.$is_select.'>分类 ';
+    $is_select = in_array('title',$wf_show_element) ? 'checked="checked"' : '';
+    $select .= '<input type="checkbox" name="wf_show_element[]" value="title" '.$is_select.'>标题 ';
+    $is_select = in_array('excerpt',$wf_show_element) ? 'checked="checked"' : '';
+    $select .= '<input type="checkbox" name="wf_show_element[]" value="excerpt" '.$is_select.'>摘录 ';
+    $is_select = in_array('datetime',$wf_show_element) ? 'checked="checked"' : '';
+    $select .= '<input type="checkbox" name="wf_show_element[]" value="datetime" '.$is_select.'>发布日期 ';
+    $is_select = in_array('count',$wf_show_element) ? 'checked="checked"' : '';
+    $select .= '<input type="checkbox" name="wf_show_element[]" value="count" '.$is_select.'>计数器 ';
+    $is_select = in_array('author',$wf_show_element) ? 'checked="checked"' : '';
+    $select .= '<input type="checkbox" name="wf_show_element[]" value="author" '.$is_select.'>作者 ';
+    
     echo '<div class="wrap">
         <h1>页面设置</h1>
         '.$update.'
@@ -318,13 +380,8 @@ function pageSetup(){
                 <tr>
                     <th scope="row"><label for="default_category">页面显示元素</label></th>
                     <td>
-                        <input id="acf-field-hide_from_index_posts" type="checkbox" class="checkbox" name="fields[field_53bf14d8cc1e9][]" value="social">分享
-                        <input id="acf-field-hide_from_index_posts" type="checkbox" class="checkbox" name="fields[field_53bf14d8cc1e9][]" value="social">分类
-                        <input id="acf-field-hide_from_index_posts" type="checkbox" class="checkbox" name="fields[field_53bf14d8cc1e9][]" value="social">标题
-                        <input id="acf-field-hide_from_index_posts" type="checkbox" class="checkbox" name="fields[field_53bf14d8cc1e9][]" value="social">摘录
-                        <input id="acf-field-hide_from_index_posts" type="checkbox" class="checkbox" name="fields[field_53bf14d8cc1e9][]" value="social">发布日期
-                        <input id="acf-field-hide_from_index_posts" type="checkbox" class="checkbox" name="fields[field_53bf14d8cc1e9][]" value="social">计数器
-                        <input id="acf-field-hide_from_index_posts" type="checkbox" class="checkbox" name="fields[field_53bf14d8cc1e9][]" value="social">作者</td>
+                        '.$select.'
+                    </td>
                 </tr>
                 <tr>
                     <th scope="row"><label for="default_post_format">帖子摘录的长度</label></th>

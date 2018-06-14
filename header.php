@@ -24,7 +24,7 @@
 		if(count($terms)) foreach($terms as $term){ $arr[] = $term->name; }
 	}
 	?>
-<meta name="keywords" content="<?php is_front_page() ? _e(get_option('wf_keywords')) : _e(implode(' ',$arr)); ?>" />
+<meta name="keywords" content="<?php is_front_page() ? _e(get_option('wf_keywords')) : _e(implode(',',$arr)); ?>" />
 	<title><?php bloginfo('name'); ?> | <?php is_front_page() ? bloginfo('description') : wp_title(''); ?></title>
 	<!--[if lt IE 9]>
 	<script src="<?php echo get_template_directory_uri(); ?>/js/html5shiv.min.js"></script>
@@ -111,18 +111,20 @@
 			<?php endif; ?>
 		<?php endif; ?>
 	</div>
+	<?php //移动设备顶部菜单部分 ?>
 	<div class="menu-toggler-w">
 		<a href="#" class="menu-toggler">
 			<i class="fa os-icon-bars"></i>
-			<span class="menu-toggler-label"><?php _e('Menu', 'pluto') ?></span>
+			<span class="menu-toggler-label"><?php _e('菜单', 'pluto') ?></span>
 		</a>
 		<?php if(get_option('wf_show_sidebar_on_mobile')){ ?>
 			<a href="#" class="sidebar-toggler">
 				<i class="fa os-icon-bars"></i>
-				<span class="sidebar-toggler-label"><?php _e('Sidebar', 'pluto') ?></span>
+				<span class="sidebar-toggler-label"><?php _e('边栏', 'pluto') ?></span>
 			</a>
 		<?php } ?>
-		<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="logo">
+		<?php //顶部菜单右侧标志和名称部分 ?>
+		<a href="<?php echo esc_url(home_url('/')); ?>" class="logo">
 			<?php if(get_option('wf_logo_image')): ?>
 				<img src="<?php _e(get_option('wf_logo_image')); ?>" alt="">
 			<?php endif; ?>
@@ -131,7 +133,7 @@
 			<?php endif; ?>
 		</a>
 	</div>
-	<?php if(get_field('show_sidebar_on_mobile', 'option')){ ?>
+	<?php if(get_option('wf_show_sidebar_on_mobile')){ ?>
 		<div class="sidebar-main-toggler">
 			<i class="fa os-icon-bars"></i>
 		</div>
