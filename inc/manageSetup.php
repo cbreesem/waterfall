@@ -226,6 +226,36 @@ function sysSetup(){
             <option value="0" selected="selected">不显示</option>';
             break;
     }
+    $wf_menu_open_style = get_option('wf_menu_open_style');
+    switch ($wf_menu_open_style) {
+        case 'click':
+            $wf_menu_open_style = '<option value="click" selected="selected">點擊</option>
+            <option value="hover">滑過</option>';
+            break;
+        case 'hover':
+            $wf_menu_open_style = '<option value="click">點擊</option>
+            <option value="hover" selected="selected">滑過</option>';
+            break;
+        default:
+            $wf_menu_open_style = '<option value="click" selected="selected">點擊</option>
+            <option value="hover">滑過</option>';
+            break;
+    }
+    $wf_use_fixed_height_index_posts = get_option('wf_use_fixed_height_index_posts');
+    switch ($wf_use_fixed_height_index_posts) {
+        case '1':
+            $wf_use_fixed_height_index_posts = '<option value="1" selected="selected">固定</option>
+            <option value="0">不固定</option>';
+            break;
+        case '0':
+            $wf_use_fixed_height_index_posts = '<option value="1">固定</option>
+            <option value="0" selected="selected">不固定</option>';
+            break;
+        default:
+            $wf_use_fixed_height_index_posts = '<option value="1">固定</option>
+            <option value="0" selected="selected">不固定</option>';
+            break;
+    }
     echo '<div class="wrap">
         <h1>基础设置</h1>
         '.$update.'
@@ -276,14 +306,19 @@ function sysSetup(){
                     <tr>
                         <th scope="row"><label for="default_post_format">菜單打開方式</label></th>
                         <td><select id="acf-field-sidebar_position" class="select" name="wf_menu_open_style">
-                            <option value="click">點擊</option>
-                            <option value="hover" selected="selected">滑過</option>
+                            '.$wf_menu_open_style.'
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="default_post_format">列表元素块是否固定高度</label></th>
+                        <td><select id="acf-field-sidebar_position" class="select" name="wf_use_fixed_height_index_posts">
+                            '.$wf_use_fixed_height_index_posts.'
                         </select></td>
                     </tr>
                 </tbody>
             </table>
         <h2 class="title">页脚说明</h2>
-        <textarea name="wf_footer" id="ping_sites" class="large-text code" rows="3">'.get_option('wf_footer').'</textarea>
+        <textarea name="wf_footer" id="ping_sites" class="large-text code" rows="5">'.get_option('wf_footer').'</textarea>
         <p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="保存更改"></p>
         </form>
     </div>';
@@ -295,25 +330,144 @@ function pageSetup(){
             $value = is_array($value) ? serialize($value) : $value;
             update_option($key, $value);
         }
-        if(!in_array('wf_show_element',array_keys($_POST))) update_option('wf_show_element', '');
+        if(!in_array('wf_show_element_on_index',array_keys($_POST))) update_option('wf_show_element_on_index', '');
         $update = '<div id="message" class="updated"><p>修改保存成功</p></div>';
     }
-    $wf_show_element = unserialize(get_option('wf_show_element'));
-    $is_select = in_array('share',$wf_show_element) ? 'checked="checked"' : '';
-    $select = '<input type="checkbox" name="wf_show_element[]" value="share" '.$is_select.'>分享 ';
-    $is_select = in_array('category',$wf_show_element) ? 'checked="checked"' : '';
-    $select .= '<input type="checkbox" name="wf_show_element[]" value="category" '.$is_select.'>分类 ';
-    $is_select = in_array('title',$wf_show_element) ? 'checked="checked"' : '';
-    $select .= '<input type="checkbox" name="wf_show_element[]" value="title" '.$is_select.'>标题 ';
-    $is_select = in_array('excerpt',$wf_show_element) ? 'checked="checked"' : '';
-    $select .= '<input type="checkbox" name="wf_show_element[]" value="excerpt" '.$is_select.'>摘录 ';
-    $is_select = in_array('datetime',$wf_show_element) ? 'checked="checked"' : '';
-    $select .= '<input type="checkbox" name="wf_show_element[]" value="datetime" '.$is_select.'>发布日期 ';
-    $is_select = in_array('count',$wf_show_element) ? 'checked="checked"' : '';
-    $select .= '<input type="checkbox" name="wf_show_element[]" value="count" '.$is_select.'>计数器 ';
-    $is_select = in_array('author',$wf_show_element) ? 'checked="checked"' : '';
-    $select .= '<input type="checkbox" name="wf_show_element[]" value="author" '.$is_select.'>作者 ';
-    
+    $wf_layout_type = get_option('wf_layout_type');
+    switch ($wf_layout_type) {
+        case 'page_masonry':
+            $wf_layout_type = '<option value="page_masonry" selected="selected">Blog Masonry</option>
+            <option value="page_masonry_condensed_facebook">Masonry Condensed Facebook Likes</option>
+            <option value="page_masonry_condensed">Masonry Condensed Hearts</option>
+            <option value="page_masonry_condensed_with_author">Masonry Condensed with Avatar</option>
+            <option value="page_masonry_condensed_fixed_height">Masonry Fixed Height</option>
+            <option value="page_masonry_simple">Masonry Simple</option>
+            <option value="page_masonry_simple_facebook">Masonry Simple Facebook</option>';
+            break;
+        case 'page_masonry_condensed_facebook':
+            $wf_layout_type = '<option value="page_masonry">Blog Masonry</option>
+            <option value="page_masonry_condensed_facebook" selected="selected">Masonry Condensed Facebook Likes</option>
+            <option value="page_masonry_condensed">Masonry Condensed Hearts</option>
+            <option value="page_masonry_condensed_with_author">Masonry Condensed with Avatar</option>
+            <option value="page_masonry_condensed_fixed_height">Masonry Fixed Height</option>
+            <option value="page_masonry_simple">Masonry Simple</option>
+            <option value="page_masonry_simple_facebook">Masonry Simple Facebook</option>';
+            break;
+        case 'page_masonry_condensed':
+            $wf_layout_type = '<option value="page_masonry">Blog Masonry</option>
+            <option value="page_masonry_condensed_facebook">Masonry Condensed Facebook Likes</option>
+            <option value="page_masonry_condensed" selected="selected">Masonry Condensed Hearts</option>
+            <option value="page_masonry_condensed_with_author">Masonry Condensed with Avatar</option>
+            <option value="page_masonry_condensed_fixed_height">Masonry Fixed Height</option>
+            <option value="page_masonry_simple">Masonry Simple</option>
+            <option value="page_masonry_simple_facebook">Masonry Simple Facebook</option>';
+            break;
+        case 'page_masonry_condensed_with_author':
+            $wf_layout_type = '<option value="page_masonry">Blog Masonry</option>
+            <option value="page_masonry_condensed_facebook">Masonry Condensed Facebook Likes</option>
+            <option value="page_masonry_condensed">Masonry Condensed Hearts</option>
+            <option value="page_masonry_condensed_with_author" selected="selected">Masonry Condensed with Avatar</option>
+            <option value="page_masonry_condensed_fixed_height">Masonry Fixed Height</option>
+            <option value="page_masonry_simple">Masonry Simple</option>
+            <option value="page_masonry_simple_facebook">Masonry Simple Facebook</option>';
+            break;
+        case 'page_masonry_condensed_fixed_height':
+            $wf_layout_type = '<option value="page_masonry">Blog Masonry</option>
+            <option value="page_masonry_condensed_facebook">Masonry Condensed Facebook Likes</option>
+            <option value="page_masonry_condensed">Masonry Condensed Hearts</option>
+            <option value="page_masonry_condensed_with_author">Masonry Condensed with Avatar</option>
+            <option value="page_masonry_condensed_fixed_height" selected="selected">Masonry Fixed Height</option>
+            <option value="page_masonry_simple">Masonry Simple</option>
+            <option value="page_masonry_simple_facebook">Masonry Simple Facebook</option>';
+            break;
+        case 'page_masonry_simple':
+            $wf_layout_type = '<option value="page_masonry">Blog Masonry</option>
+            <option value="page_masonry_condensed_facebook">Masonry Condensed Facebook Likes</option>
+            <option value="page_masonry_condensed">Masonry Condensed Hearts</option>
+            <option value="page_masonry_condensed_with_author">Masonry Condensed with Avatar</option>
+            <option value="page_masonry_condensed_fixed_height">Masonry Fixed Height</option>
+            <option value="page_masonry_simple" selected="selected">Masonry Simple</option>
+            <option value="page_masonry_simple_facebook">Masonry Simple Facebook</option>';
+            break;
+        case 'page_masonry_simple_facebook':
+            $wf_layout_type = '<option value="page_masonry">Blog Masonry</option>
+            <option value="page_masonry_condensed_facebook">Masonry Condensed Facebook Likes</option>
+            <option value="page_masonry_condensed">Masonry Condensed Hearts</option>
+            <option value="page_masonry_condensed_with_author">Masonry Condensed with Avatar</option>
+            <option value="page_masonry_condensed_fixed_height">Masonry Fixed Height</option>
+            <option value="page_masonry_simple">Masonry Simple</option>
+            <option value="page_masonry_simple_facebook" selected="selected">Masonry Simple Facebook</option>';
+            break;
+        default:
+            $wf_layout_type = '<option value="page_masonry" selected="selected">Blog Masonry</option>
+            <option value="page_masonry_condensed_facebook">Masonry Condensed Facebook Likes</option>
+            <option value="page_masonry_condensed">Masonry Condensed Hearts</option>
+            <option value="page_masonry_condensed_with_author">Masonry Condensed with Avatar</option>
+            <option value="page_masonry_condensed_fixed_height">Masonry Fixed Height</option>
+            <option value="page_masonry_simple">Masonry Simple</option>
+            <option value="page_masonry_simple_facebook">Masonry Simple Facebook</option>';
+            break;
+    }
+    $wf_show_element_on_index = unserialize(get_option('wf_show_element_on_index'));
+    $is_select = in_array('share',$wf_show_element_on_index) ? 'checked="checked"' : '';
+    $select = '<input type="checkbox" name="wf_show_element_on_index[]" value="share" '.$is_select.'>分享 ';
+    $is_select = in_array('category',$wf_show_element_on_index) ? 'checked="checked"' : '';
+    $select .= '<input type="checkbox" name="wf_show_element_on_index[]" value="category" '.$is_select.'>分类 ';
+    $is_select = in_array('title',$wf_show_element_on_index) ? 'checked="checked"' : '';
+    $select .= '<input type="checkbox" name="wf_show_element_on_index[]" value="title" '.$is_select.'>标题 ';
+    $is_select = in_array('excerpt',$wf_show_element_on_index) ? 'checked="checked"' : '';
+    $select .= '<input type="checkbox" name="wf_show_element_on_index[]" value="excerpt" '.$is_select.'>摘录 ';
+    $is_select = in_array('datetime',$wf_show_element_on_index) ? 'checked="checked"' : '';
+    $select .= '<input type="checkbox" name="wf_show_element_on_index[]" value="datetime" '.$is_select.'>发布日期 ';
+    $is_select = in_array('count',$wf_show_element_on_index) ? 'checked="checked"' : '';
+    $select .= '<input type="checkbox" name="wf_show_element_on_index[]" value="count" '.$is_select.'>计数器 ';
+    $is_select = in_array('author',$wf_show_element_on_index) ? 'checked="checked"' : '';
+    $select .= '<input type="checkbox" name="wf_show_element_on_index[]" value="author" '.$is_select.'>作者 ';
+    $wf_show_topbar = get_option('wf_show_topbar');
+    switch ($wf_show_topbar) {
+        case '1':
+            $wf_show_topbar = '<option value="1" selected="selected">显示</option>
+            <option value="0">不显示</option>';
+            break;
+        case '0':
+            $wf_show_topbar = '<option value="1">显示</option>
+            <option value="0" selected="selected">不显示</option>';
+            break;
+        default:
+            $wf_show_topbar = '<option value="1" selected="selected">显示</option>
+            <option value="0">不显示</option>';
+            break;
+    }
+    $wf_show_featured = get_option('wf_show_featured');
+    switch ($wf_show_featured) {
+        case '1':
+            $wf_show_featured = '<option value="1" selected="selected">显示</option>
+            <option value="0">不显示</option>';
+            break;
+        case '0':
+            $wf_show_featured = '<option value="1">显示</option>
+            <option value="0" selected="selected">不显示</option>';
+            break;
+        default:
+            $wf_show_featured = '<option value="1" selected="selected">显示</option>
+            <option value="0">不显示</option>';
+            break;
+    }
+    $wf_featured_type = get_option('wf_featured_type');
+    switch ($wf_featured_type) {
+        case 'compact':
+            $wf_featured_type = '<option value="compact" selected="selected">紧凑的</option>
+            <option value="full">全尺寸</option>';
+            break;
+        case 'full':
+            $wf_featured_type = '<option value="compact">紧凑的</option>
+            <option value="full" selected="selected">全尺寸</option>';
+            break;
+        default:
+            $wf_featured_type = '<option value="compact" selected="selected">紧凑的</option>
+            <option value="full">全尺寸</option>';
+            break;
+    }
     echo '<div class="wrap">
         <h1>页面设置</h1>
         '.$update.'
@@ -322,30 +476,35 @@ function pageSetup(){
         <table class="form-table">
             <tbody>
                 <tr>
+                    <th scope="row"><label for="default_post_format">布局模式</label></th>
+                    <td><select class="select" name="wf_layout_type">
+                        '.$wf_layout_type.'
+                    </select></td>
+                </tr>
+                <tr>
                     <th scope="row"><label for="default_category">页面显示元素</label></th>
-                    <td>
-                        '.$select.'
-                    </td>
+                    <td>'.$select.'</td>
                 </tr>
                 <tr>
                     <th scope="row"><label for="default_post_format">帖子摘录的长度</label></th>
-                    <td><input type="text" name="wf_beian"></td></td>
+                    <td><input type="text" name="wf_index_excerpt_length" value="'.get_option('wf_index_excerpt_length').'"/></td>
                 </tr>
                 <tr>
                     <th scope="row"><label for="default_post_format">是否显示顶部栏目</label></th>
-                    <td><input type="radio" name="wf_show_topbar" value="1" checked="checked"/>顯示
-                    <input type="radio" name="wf_show_topbar" value="0" checked="0" />不顯示</td>
+                    <td><select class="select" name="wf_show_topbar">
+                        '.$wf_show_topbar.'
+                    </select></td>
                 </tr>
                 <tr>
                     <th scope="row"><label for="default_post_format">是否显示精选内容</label></th>
-                    <td><input type="radio" name="wf_show_featured" value="1" />顯示
-                    <input type="radio" name="wf_show_featured" value="0" />不顯示</td>
+                    <td><select class="select" name="wf_show_featured">
+                        '.$wf_show_featured.'
+                    </select></td>
                 </tr>
                 <tr>
                     <th scope="row"><label for="default_post_format">显示精选方式</label></th>
                     <td><select class="select" name="wf_featured_type">
-                        <option value="compact">紧凑的</option>
-                        <option value="full" selected="selected">全尺寸</option>
+                        '.$wf_featured_type.'
                     </select></td>
                 </tr>
             </tbody>
@@ -355,7 +514,7 @@ function pageSetup(){
             <tbody>
                 <tr>
                     <th scope="row"><label for="default_category">页面显示元素</label></th>
-                    <td>分享、分类、标题、摘录、发布日期、计数器、作者<input type="text" name="wf_keyworld" class="regular-text code"></td>
+                    <td><input type="text" name="wf_keyworld" class="regular-text code"></td>
                 </tr>
                 <tr>
                     <th scope="row"><label for="default_post_format">帖子摘录的长度</label></th>
@@ -367,8 +526,12 @@ function pageSetup(){
         <table class="form-table">
             <tbody>
                 <tr>
+                    <th scope="row"><label for="default_post_format">帖子摘录的长度</label></th>
+                    <td><input type="text" name="wf_beian" class="regular-text code"></td></td>
+                </tr>
+                <tr>
                     <th scope="row"><label for="default_category">文章展示寬度</label></th>
-                    <td>分享、分类、标题、摘录、发布日期、计数器、作者<input type="text" name="wf_keyworld" class="regular-text code"></td>
+                    <td><input type="text" name="wf_single_post_maximum_width" class="regular-text code"></td>
                 </tr>
                 <tr>
                     <th scope="row"><label for="default_post_format">帖子摘录的长度</label></th>

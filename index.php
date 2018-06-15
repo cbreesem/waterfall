@@ -18,39 +18,33 @@
 	if (have_posts())
 ?>
 	<?php //os_the_primary_sidebar(true); ?>
-
 	<div class="main-content-i">
 		<?php
-			// $template_type = str_replace('_', '-', get_field('archive_layout_type', 'option'));
-			// $template_type = str_replace('_', '-', 'page_masonry');
-			// echo $template_type;
-			// $facebook_likes = in_array('page_masonry', array("page_masonry_condensed_facebook", "page_masonry_simple_facebook")) ? true : false;
-			// $forse_fixed_height = (('page_masonry' == "page_masonry_condensed_fixed_height") || os_get_use_fixed_height_index_posts() == true) ? true : false;
-			// $layout_mode = (('page_masonry' == "page_masonry_condensed_fixed_height") || os_get_use_fixed_height_index_posts() == true) ? 'fitRows' : 'masonry';
-			// $template_part = (get_field('archive_layout_type', 'option') == "page_masonry") ? 'content' : 'v3-content';
-			
-			
-			// if(in_array('page_masonry', array('page_masonry_simple_facebook', 'page_masonry_simple'))){
-			//   $layout_type = 'v3-simple';
-			//   $isotope_class = 'v3 isotope-simple';
-			//   $forse_hide_element_read_more = true;
-			//   $forse_hide_element_date = true;
-			// }elseif(in_array('page_masonry', array('page_masonry', 'page_masonry_simple'))){
-			//   $layout_type = 'v1';
-			//   $isotope_class = 'v1';
-			// }else{
-			//   $layout_type = 'v3';
-			//   $isotope_class = 'v3 isotope-condensed';
-			// }
-			// echo 
-			// if('page_masonry' == 'page_masonry_condensed_with_author'){
-			//   $show_author_face = true;
-			//   $isotope_class.= ' isotope-with-author';
-			// }else{
-			//   $show_author_face = false;
-			// }
+			$template = get_option('wf_layout_type');
+			$template_type = str_replace('_', '-', $template);
+			$forse_fixed_height = $template == "page_masonry_condensed_fixed_height" || get_option('wf_use_fixed_height_index_posts') == true ? true : false;
+			$layout_mode = $template == "page_masonry_condensed_fixed_height" || get_option('wf_use_fixed_height_index_posts') == true ? 'fitRows' : 'masonry';
+			$template_part = $template == "page_masonry" ? 'content' : 'v3-content';
+
+			if(in_array($template, array('page_masonry_simple_facebook', 'page_masonry_simple'))){
+			  $layout_type = 'v3-simple';
+			  $isotope_class = 'v3 isotope-simple';
+			  $forse_hide_element_read_more = true;
+			  $forse_hide_element_date = true;
+			}elseif(in_array($template, array('page_masonry', 'page_masonry_simple'))){
+			  $layout_type = 'v1';
+			  $isotope_class = 'v1';
+			}else{
+			  $layout_type = 'v3';
+			  $isotope_class = 'v3 isotope-condensed';
+			}
+			if($template == 'page_masonry_condensed_with_author'){
+			  $show_author_face = true;
+			  $isotope_class.= ' isotope-with-author';
+			}else{
+			  $show_author_face = false;
+			}
 		?>
-		<?php //require_once(get_template_directory() . '/inc/set-layout-vars.php') ?>
 		<?php
 		//精选内容开始
 		if(get_option('wf_show_featured')){
@@ -73,12 +67,12 @@
 		?>
 			<div class="index-isotope <?php echo $isotope_class; ?>" data-layout-mode="<?php echo $layout_mode; ?>">
 				<?php $os_current_box_counter = 1; $os_ad_block_counter = 0; ?>
-				<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
-					<?php get_template_part( $template_part, get_post_format() ); ?>
+				<?php if(have_posts()) : while( have_posts() ) : the_post(); ?>
+					<?php get_template_part($template_part, get_post_format()); ?>
 					<?php os_ad_between_posts(); ?>
 				<?php endwhile; endif; ?>
 			</div>
-			<?php require_once(get_template_directory() . '/inc/isotope-navigation.php') ?>
+			<?php require_once(get_template_directory().'/inc/isotope-navigation.php') ?>
 		</div>
 		<?php os_footer(); ?>
 	</div>
