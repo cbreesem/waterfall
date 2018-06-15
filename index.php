@@ -27,22 +27,22 @@
 			$template_part = $template == "page_masonry" ? 'content' : 'v3-content';
 
 			if(in_array($template, array('page_masonry_simple_facebook', 'page_masonry_simple'))){
-			  $layout_type = 'v3-simple';
-			  $isotope_class = 'v3 isotope-simple';
-			  $forse_hide_element_read_more = true;
-			  $forse_hide_element_date = true;
+				$layout_type = 'v3-simple';
+				$isotope_class = 'v3 isotope-simple';
+				$forse_hide_element_read_more = true;
+				$forse_hide_element_date = true;
 			}elseif(in_array($template, array('page_masonry', 'page_masonry_simple'))){
-			  $layout_type = 'v1';
-			  $isotope_class = 'v1';
+				$layout_type = 'v1';
+				$isotope_class = 'v1';
 			}else{
-			  $layout_type = 'v3';
-			  $isotope_class = 'v3 isotope-condensed';
+				$layout_type = 'v3';
+				$isotope_class = 'v3 isotope-condensed';
 			}
 			if($template == 'page_masonry_condensed_with_author'){
-			  $show_author_face = true;
-			  $isotope_class.= ' isotope-with-author';
+				$show_author_face = true;
+				$isotope_class.= ' isotope-with-author';
 			}else{
-			  $show_author_face = false;
+				$show_author_face = false;
 			}
 		?>
 		<?php
