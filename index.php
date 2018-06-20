@@ -67,7 +67,7 @@
 		?>
 			<div class="index-isotope <?php echo $isotope_class; ?>" data-layout-mode="<?php echo $layout_mode; ?>">
 				<?php $os_current_box_counter = 1; $os_ad_block_counter = 0; ?>
-				<?php if(have_posts()) : while( have_posts() ) : the_post(); ?>
+				<?php if(have_posts()) : while(have_posts()): the_post(); ?>
 					<?php get_template_part($template_part, get_post_format()); ?>
 					<?php os_ad_between_posts(); ?>
 				<?php endwhile; endif; ?>
