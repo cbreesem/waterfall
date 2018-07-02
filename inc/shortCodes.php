@@ -1,4 +1,19 @@
 <?php
+
+function listShareButtons4ShortCode($atts){
+    $a = shortcode_atts(array('foo'=>'something','bar'=>'something else'),$atts);
+    global $wp;
+    $url = get_permalink();
+    $text = urlencode(get_the_title());
+    $icons_uri = get_template_directory_uri().'/attachment/share_button_icon';
+    $img_to_pin = has_post_thumbnail() ? wp_get_attachment_url( get_post_thumbnail_id() ) : "";
+
+    $html = '<div class="os_social">';
+    $html.= '<a class="os_social_twitter_share" href="http://twitter.com/share?url='.$url.'&amp;text='.$text.'" target="_blank"><img src="'.$icons_uri.'/twitter.png" title="Twitter" class="os_social" alt="Tweet about this on Twitter"></a>';
+
+    $html.= '</div>';
+    return $html;
+}
 // [os_social_buttons]
 function shortcode_os_social_buttons_func( $atts ) {
     $a = shortcode_atts( array(
@@ -26,7 +41,8 @@ function shortcode_os_social_buttons_func( $atts ) {
     $html.= '</div>';
     return $html;
 }
-add_shortcode( 'os_social_buttons', 'shortcode_os_social_buttons_func' );
+// add_shortcode( 'os_social_buttons', 'shortcode_os_social_buttons_func' );
+add_shortcode( 'os_social_buttons', 'listShareButtons4ShortCode' );
 
 // Featured Posts Slider shortcode
 function shortcode_os_featured_slider($atts){
