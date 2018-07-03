@@ -1,35 +1,13 @@
 <div class="item-isotope">
     <article id="post-<?php the_ID(); ?>" <?php post_class('pluto-post-box'); ?>>
         <div class="post-body">
-            <?php
-                $element = unserialize(get_option('wf_show_element_on_index'));
-                if(in_array('share',$element)){
-                    if(is_rtl()){      
-            ?>
-            <div class="post-top-share">
-                <span class="share-activator-label share-activator caption"><?php _e("分享") ?></span>
-                <i class="fa os-icon-plus share-activator-icon share-activator"></i>
-                <div class="os_social-head-w"><?php echo do_shortcode('[os_social_buttons]'); ?></div>
-            </div>
-            <?php
-                    }else{
-            ?>
-            <div class="post-top-share">
-                <i class="fa os-icon-plus share-activator-icon share-activator"></i>
-                <span class="share-activator-label share-activator caption"><?php _e("分享") ?></span>
-                <div class="os_social-head-w"><?php echo do_shortcode('[os_social_buttons]'); ?></div>
-            </div>
-            <?php
-                    }
-                }
-            ?>
-            <?php osetin_top_social_share_index(); ?>
+            <?php listTopShareButtons(); ?>
             <?php osetin_get_media_content(); ?>
 
             <?php if(os_is_post_element_active('title') || os_is_post_element_active('category') || os_is_post_element_active('excerpt')){ ?>
                 <div class="post-content-body">
                     <?php if(os_is_post_element_active('title')): ?>
-                        <h4 class="post-title entry-title"><a href="<?php echo esc_url( get_permalink() ); ?>"><?php the_title(); ?></a></h4>
+                        <h4 class="post-title entry-title"><a href="<?php echo esc_url(get_permalink()); ?>"><?php the_title(); ?></a></h4>
                     <?php endif; ?>
                     <?php if(os_is_post_element_active('category')): ?>
                         <?php echo get_the_category_list(); ?>

@@ -2,6 +2,7 @@
 
 require_once get_template_directory() . '/inc/shortCodes.php';
 require_once get_template_directory() . '/inc/manageSetup.php';
+require_once dirname( __FILE__ ) . '/inc/helpers.php';
 
 // 自定义排序
 function orderCustom( $query ) {
