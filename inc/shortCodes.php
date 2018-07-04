@@ -9,17 +9,17 @@ function listShareButtons4ShortCode($atts){
     $img_to_pin = has_post_thumbnail() ? wp_get_attachment_url( get_post_thumbnail_id() ) : "";
 
     $html = '<div class="os_social">';
-    $html.= '<a class="os_social_twitter_share" href="http://twitter.com/share?url='.$url.'&amp;text='.$text.'" target="_blank"><img src="'.$icons_uri.'/qq.png" title="QQ分享" class="os_social" alt="QQ分享"></a>';
-    $html.= '<a class="os_social_twitter_share" href="http://twitter.com/share?url='.$url.'&amp;text='.$text.'" target="_blank"><img src="'.$icons_uri.'/qqzone.png" title="分享到QQ空间" class="os_social" alt="分享到QQ空间"></a>';
-    $html.= '<a class="os_social_twitter_share" href="http://twitter.com/share?url='.$url.'&amp;text='.$text.'" target="_blank"><img src="'.$icons_uri.'/sina.png" title="分享到新浪微博" class="os_social" alt="分享到新浪微博"></a>';
-    $html.= '<a class="os_social_twitter_share" href="http://twitter.com/share?url='.$url.'&amp;text='.$text.'" target="_blank"><img src="'.$icons_uri.'/rr.png" title="分享到人人网" class="os_social" alt="分享到人人网"></a>';
-    $html.= '<a class="os_social_twitter_share" href="http://twitter.com/share?url='.$url.'&amp;text='.$text.'" target="_blank"><img src="'.$icons_uri.'/wechat.png" title="分享给微信好友" class="os_social" alt="分享给微信好友"></a>';
-    $html.= '<a class="os_social_twitter_share" href="http://twitter.com/share?url='.$url.'&amp;text='.$text.'" target="_blank"><img src="'.$icons_uri.'/yx.png" title="分享到易信网" class="os_social" alt="分享到易信网"></a>';
-    $html.= '<a class="os_social_twitter_share" href="http://twitter.com/share?url='.$url.'&amp;text='.$text.'" target="_blank"><img src="'.$icons_uri.'/qqwb.png" title="分享到腾讯微博" class="os_social" alt="分享到腾讯微博"></a>';
-    $html.= '<a class="os_social_twitter_share" href="http://twitter.com/share?url='.$url.'&amp;text='.$text.'" target="_blank"><img src="'.$icons_uri.'/fri.png" title="分享到朋友网" class="os_social" alt="分享到朋友网"></a>';
-    $html.= '<a class="os_social_twitter_share" href="http://twitter.com/share?url='.$url.'&amp;text='.$text.'" target="_blank"><img src="'.$icons_uri.'/bd.png" title="分享到百度" class="os_social" alt="分享到百度"></a>';
-    $html.= '<a class="os_social_twitter_share" href="http://twitter.com/share?url='.$url.'&amp;text='.$text.'" target="_blank"><img src="'.$icons_uri.'/db.png" title="分享到豆瓣" class="os_social" alt="分享到豆瓣"></a>';
-    $html.= '<a class="os_social_twitter_share" href="http://twitter.com/share?url='.$url.'&amp;text='.$text.'" target="_blank"><img src="'.$icons_uri.'/py.png" title="分享到微信朋友圈" class="os_social" alt="分享到微信朋友圈"></a>';
+    $html.= '<a href="http://twitter.com/share?url='.$url.'&amp;text='.$text.'" target="_blank"><img src="'.$icons_uri.'/qq.png" title="QQ分享" class="os_social" alt="QQ分享"></a>';
+    $html.= '<a href="http://twitter.com/share?url='.$url.'&amp;text='.$text.'" target="_blank"><img src="'.$icons_uri.'/qqzone.png" title="分享到QQ空间" class="os_social" alt="分享到QQ空间"></a>';
+    $html.= '<a href="http://twitter.com/share?url='.$url.'&amp;text='.$text.'" target="_blank"><img src="'.$icons_uri.'/sina.png" title="分享到新浪微博" class="os_social" alt="分享到新浪微博"></a>';
+    $html.= '<a href="http://twitter.com/share?url='.$url.'&amp;text='.$text.'" target="_blank"><img src="'.$icons_uri.'/rr.png" title="分享到人人网" class="os_social" alt="分享到人人网"></a>';
+    $html.= '<a href="http://twitter.com/share?url='.$url.'&amp;text='.$text.'" target="_blank"><img src="'.$icons_uri.'/wechat.png" title="分享给微信好友" class="os_social" alt="分享给微信好友"></a>';
+    $html.= '<a href="http://twitter.com/share?url='.$url.'&amp;text='.$text.'" target="_blank"><img src="'.$icons_uri.'/yx.png" title="分享到易信网" class="os_social" alt="分享到易信网"></a>';
+    $html.= '<a href="http://twitter.com/share?url='.$url.'&amp;text='.$text.'" target="_blank"><img src="'.$icons_uri.'/qqwb.png" title="分享到腾讯微博" class="os_social" alt="分享到腾讯微博"></a>';
+    $html.= '<a href="http://twitter.com/share?url='.$url.'&amp;text='.$text.'" target="_blank"><img src="'.$icons_uri.'/fri.png" title="分享到朋友网" class="os_social" alt="分享到朋友网"></a>';
+    $html.= '<a href="http://twitter.com/share?url='.$url.'&amp;text='.$text.'" target="_blank"><img src="'.$icons_uri.'/bd.png" title="分享到百度" class="os_social" alt="分享到百度"></a>';
+    $html.= '<a href="http://twitter.com/share?url='.$url.'&amp;text='.$text.'" target="_blank"><img src="'.$icons_uri.'/db.png" title="分享到豆瓣" class="os_social" alt="分享到豆瓣"></a>';
+    $html.= '<a href="http://twitter.com/share?url='.$url.'&amp;text='.$text.'" target="_blank"><img src="'.$icons_uri.'/py.png" title="分享到微信朋友圈" class="os_social" alt="分享到微信朋友圈"></a>';
 
     $html.= '</div>';
     return $html;
