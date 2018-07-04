@@ -24,7 +24,7 @@ function listMediaContent($size = false, $forse_single = false){
         case 'video':
             global $wp_embed;
             echo '<div class="post-video-box post-media-body">
-                    .'$wp_embed->run_shortcode('[embed]'.get_field('video_url').'[/embed]')'.
+                    '.$wp_embed->run_shortcode('[embed]'.get_field('video_url').'[/embed]').'
                 </div>';
             break;
         case 'gallery':
@@ -40,7 +40,8 @@ function listMediaContent($size = false, $forse_single = false){
                             if(is_single()){
                                 $img_src = $image['sizes']['large'];
                             }else{
-                                $img_src = (os_get_use_fixed_height_index_posts() == true) ? $image['sizes']['pluto-fixed-height'] : $image['sizes']['pluto-index-width'];
+                                // 是否固定元素块高度
+                                $img_src = get_option('wf_use_fixed_height_index_posts') == true ? $image['sizes']['pluto-fixed-height'] : $image['sizes']['pluto-index-width'];
                             }
                         }
                         echo '<li><img src="'.$img_src.'" alt="'.$image['alt'].'" /></li>';
@@ -49,14 +50,14 @@ function listMediaContent($size = false, $forse_single = false){
                             </div>
                         </div>';
                 }else{
-                    os_output_post_thumbnail($size, $forse_single);
+                    outputPostThumbnail($size, $forse_single);
                 }
             break;
-        case "image":
-            os_output_post_thumbnail($size, $forse_single);
+        case 'image':
+            outputPostThumbnail($size, $forse_single);
             break;
         default:
-            os_output_post_thumbnail($size, $forse_single);
+            outputPostThumbnail($size, $forse_single);
             break;
     }
 }
@@ -70,7 +71,7 @@ function outputPostThumbnail($size = false, $forse_single = false){
                             <figure>';
             $thumb_size = $size != false ? $size : 'full';
             the_post_thumbnail($thumb_size);
-            if(get_field('disable_image_hover_effect', 'option') != true){
+            if(get_option('wf_image_hover_effect') != true){
                 echo '<div class="figure-shade"></div><i class="figure-icon os-icon-thin-098_zoom_in_magnify_plus"></i>';
             }
             echo '</figure>
@@ -78,33 +79,28 @@ function outputPostThumbnail($size = false, $forse_single = false){
                     </div>
                 </div>';
         }else{
-
-        }
-        # code...
-    }
-    if(has_post_thumbnail()):
-        if(is_single() || $forse_single): ?>
-            <div class="post-media-body">
-                <div class="figure-link-w">
-                    
-                </div>
-            </div> <?php
-        else:
-            if($size != false){
+            if ($size != false) {
                 $img_html = get_the_post_thumbnail(get_the_ID(), $size);
             }else{
-                if ( basename(get_page_template()) == 'page-blog.php' ) {
+                if(basename(get_page_template()) == 'page-blog.php'){
                     $img_html =  get_the_post_thumbnail(get_the_ID(), 'full');
-                }else{
-                    $img_html = (os_get_use_fixed_height_index_posts() == true) ? get_the_post_thumbnail(get_the_ID(), 'pluto-fixed-height') : get_the_post_thumbnail(get_the_ID(), 'pluto-index-width');
+                } else {
+                    // 是否固定元素块高度
+                    $img_html = get_option('wf_use_fixed_height_index_posts') == true ? get_the_post_thumbnail(get_the_ID(), 'pluto-fixed-height') : get_the_post_thumbnail(get_the_ID(), 'pluto-index-width');
                 }
+                $shade_html = get_option('wf_image_hover_effect') == true ? '' : '<div class="figure-shade"></div><i class="figure-icon os-icon-thin-044_visability_view_watch_eye"></i>';
+                $os_link = get_post_format() == 'link' ? get_field('external_link') : get_permalink();
+                $new_window = get_post_format() == 'link' ? 'target="_blank"' : "";
+                echo '<div class="post-media-body">
+                        <div class="figure-link-w">
+                            <a href="'.$os_link.'" '.$new_window.' class="figure-link">
+                                <figure>'.$img_html.$shade_html.'</figure>
+                            </a>
+                        </div>
+                    </div>';
             }
-            $shade_html = (get_field('disable_image_hover_effect', 'option') == true) ? "" : '<div class="figure-shade"></div><i class="figure-icon os-icon-thin-044_visability_view_watch_eye"></i>';
-            $os_link = get_post_format() == 'link' ? get_field('external_link') : get_permalink(); ?>
-            <?php $new_window = (get_post_format() == 'link') ? 'target="_blank"' : ""; ?>
-            <div class="post-media-body"><div class="figure-link-w"><a href="<?php echo $os_link; ?>" <?php echo $new_window ?> class="figure-link"><figure><?php echo $img_html; ?><?php echo $shade_html; ?></figure></a></div></div>
-            <?php
-        endif;
-    endif;
+        }
+    }
 }
+
 ?>

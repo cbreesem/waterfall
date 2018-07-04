@@ -256,6 +256,21 @@ function sysSetup(){
             <option value="0" selected="selected">不固定</option>';
             break;
     }
+    $wf_image_hover_effect = get_option('wf_image_hover_effect');
+    switch ($wf_image_hover_effect) {
+        case '1':
+            $wf_image_hover_effect = '<option value="1" selected="selected">有</option>
+            <option value="0">无</option>';
+            break;
+        case '0':
+            $wf_image_hover_effect = '<option value="1">有</option>
+            <option value="0" selected="selected">无</option>';
+            break;
+        default:
+            $wf_image_hover_effect = '<option value="1">有</option>
+            <option value="0" selected="selected">无</option>';
+            break;
+    }
     echo '<div class="wrap">
         <h1>基础设置</h1>
         '.$update.'
@@ -313,6 +328,12 @@ function sysSetup(){
                         <th scope="row"><label for="default_post_format">列表元素块是否固定高度</label></th>
                         <td><select id="acf-field-sidebar_position" class="select" name="wf_use_fixed_height_index_posts">
                             '.$wf_use_fixed_height_index_posts.'
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="default_post_format">列表图像悬停效果</label></th>
+                        <td><select id="acf-field-sidebar_position" class="select" name="wf_image_hover_effect">
+                            '.$wf_image_hover_effect.'
                         </select></td>
                     </tr>
                 </tbody>
