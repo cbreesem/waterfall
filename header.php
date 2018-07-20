@@ -19,7 +19,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="description" content="<?php is_front_page() ? _e(get_option('wf_description')) : wp_title(''); ?>"/>
 	<?php
-	if(is_front_page()){ // 判断是否为首页
+	if(!is_front_page()){ // 判断是否为首页
 		$terms = get_the_terms($id, 'label'); // 输出文章的关键字
 		if(count($terms)) foreach($terms as $term){ $arr[] = $term->name; }
 	}
