@@ -19,7 +19,7 @@ function listTopShareButtons(){
     }
 }
 /* 获取列表单元中的媒体内容 */
-function listMediaContent($size = false, $forse_single = false){
+function listMediaContent($size=false, $forse_single=false){
     switch (get_post_format()) {
         case 'video':
             global $wp_embed;
@@ -62,7 +62,7 @@ function listMediaContent($size = false, $forse_single = false){
     }
 }
 /* 输出递交内容的图标 */
-function outputPostThumbnail($size = false, $forse_single = false){
+function outputPostThumbnail($size=false, $forse_single=false){
     if (has_post_thumbnail()) {
         if(is_single() || $forse_single){
             echo '<div class="post-media-body">
@@ -102,5 +102,16 @@ function outputPostThumbnail($size = false, $forse_single = false){
         }
     }
 }
+/* 获取下一页链接 */
+function getNextPostsLink($os_query){
+    $current_page = ( isset($os_query->query['paged']) ) ? $os_query->query['paged'] : 1;
+    $next_page = ($current_page < $os_query->max_num_pages) ? $current_page + 1 : false;
+    if($next_page){
+        return http_build_query(wp_parse_args( array('paged' => $next_page), $os_query->query));
+    }else{
+        return false;
+    }
+}
+
 
 ?>

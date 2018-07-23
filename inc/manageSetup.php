@@ -52,6 +52,10 @@ function waterfall(){
                         <td><input type="text" name="wf_description" class="regular-text code" value="'.get_option('wf_description').'"></td></td>
                     </tr>
                     <tr>
+                        <th scope="row"><label for="default_post_format">网站版权</label></th>
+                        <td><input type="text" name="wf_footer_text" class="regular-text code" value="'.get_option('wf_footer_text').'"></td></td>
+                    </tr>
+                    <tr>
                         <th scope="row"><label for="default_post_format">工信部备案号</label></th>
                         <td><input type="text" name="wf_beian" class="regular-text code" value="'.get_option('wf_beian').'"></td></td>
                     </tr>

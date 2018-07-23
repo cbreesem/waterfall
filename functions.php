@@ -3,6 +3,10 @@
 require_once get_template_directory() . '/inc/shortCodes.php';
 require_once get_template_directory() . '/inc/manageSetup.php';
 require_once dirname( __FILE__ ) . '/inc/helpers.php';
+require_once dirname( __FILE__ ) . '/inc/loadScript.php';
+
+// 定义模板版本
+if (!defined('WATERFALL_THEME_VERSION')) define('WATERFALL_THEME_VERSION', '1.0');
 
 // 自定义排序
 function orderCustom( $query ) {
