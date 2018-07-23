@@ -31,7 +31,7 @@ function loadScript() {
 	// Load our main stylesheet.
 	wp_enqueue_style( 'pluto-style', get_stylesheet_uri() );
 	// Load editor styles
-	wp_enqueue_style( 'pluto-editor-style', get_template_directory_uri() . '/editor-style.css', array(), WATERFALL_THEME_VERSION );
+	wp_enqueue_style( 'pluto-editor-style', get_template_directory_uri() . '/res/css/editor-style.css', array(), WATERFALL_THEME_VERSION );
 
 	// Color scheme
 
