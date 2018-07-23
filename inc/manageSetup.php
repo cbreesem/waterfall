@@ -275,6 +275,29 @@ function sysSetup(){
             <option value="0" selected="selected">无</option>';
             break;
     }
+    $wf_color_scheme = get_option('wf_color_scheme');
+    $color = array(
+        'al_pacino' => 'Al Pacino',
+        'blue_sky' => 'Blue Sky',
+        'dark_night' => 'Dark Night',
+        'black_and_white' => 'Black &amp; White',
+        'pinkman' => 'Pinkman',
+        'sakura' => 'Sakura',
+        'grey_clouds' => 'Grey Clouds',
+        'almond_milk' => 'Almond Milk',
+        'clear_white' => 'Clear White',
+        'retro_orange' => 'Retro Orange',
+        'mighty_slate' => 'Mighty Slate'
+    );
+    $colors = '';
+    foreach ($color as $key => $value) {
+        if ($key == $wf_color_scheme) {
+            $colors .= '<option value="'.$key.'" selected="selected">'.$value.'</option>';
+        } else {
+            $colors .= '<option value="'.$key.'">'.$value.'</option>';
+        }
+    }
+    $wf_color_scheme = $colors;
     echo '<div class="wrap">
         <h1>基础设置</h1>
         '.$update.'
@@ -338,6 +361,12 @@ function sysSetup(){
                         <th scope="row"><label for="default_post_format">列表图像悬停效果</label></th>
                         <td><select id="acf-field-sidebar_position" class="select" name="wf_image_hover_effect">
                             '.$wf_image_hover_effect.'
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="default_post_format">配色方案</label></th>
+                        <td><select id="acf-field-sidebar_position" class="select" name="wf_color_scheme">
+                            '.$wf_color_scheme.'
                         </select></td>
                     </tr>
                 </tbody>

@@ -8,6 +8,9 @@ require_once dirname( __FILE__ ) . '/inc/loadScript.php';
 // 定义模板版本
 if (!defined('WATERFALL_THEME_VERSION')) define('WATERFALL_THEME_VERSION', '1.0');
 
+require_once get_template_directory() . '/inc/less2Css.php';
+require_once get_template_directory() . '/inc/lessVariables.php';
+
 // 自定义排序
 function orderCustom( $query ) {
     if ((is_home() || is_archive()) && $query->is_main_query()) {
