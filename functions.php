@@ -192,10 +192,86 @@ function os_the_primary_sidebar($masonry=false){
         </div>';
     }
 }
-  
+// 添加页面菜单class
+add_filter('body_class','menuBodyClass');
+function menuBodyClass($classes){
+    // 判断菜单方位及风格加载其样式
+    switch(get_option('wf_menu_position')){
+        case 'top':
+            $classes[] = 'menu-position-top';
+            switch (get_option('wf_menu_style')) {
+                case 'v1':
+                    $classes[] = 'menu-style-v1';
+                    break;
+                case 'v2':
+                    $classes[] = 'menu-style-v2 menu-fixed';
+                    break;
+                default:
+                    $classes[] = 'menu-style-v2 menu-fixed';
+                    break;
+            }
+            break;
+        case 'right':
+            $classes[] = 'menu-position-right';
+            break;
+        default:
+            $classes[] = 'menu-position-left';
+            break;
+    }
+    // 加载菜单打开方式样式
+    $classes[] = get_option('wf_menu_open_style') == 'click' ? 'menu-trigger-click' : 'menu-trigger-hover';
 
+    // 加载侧栏的样式
+    if(is_home()){
+        if(get_option('wf_show_sidebar_on_index')){
+            switch (get_option('wf_sidebar_position')) {
+                case 'left':
+                    $classes[] = 'sidebar-position-left';
+                    break;
+                case 'right':
+                    $classes[] = 'sidebar-position-right';
+                    break;
+                default:
+                    $classes[] = 'no-sidebar';
+                    break;
+            }
+        } else {
+            $classes[] = 'no-sidebar';
+        }
+    } else {
+        switch (get_option('wf_sidebar_position')) {
+            case 'left':
+                $classes[] = 'sidebar-position-left';
+                break;
+            case 'right':
+                $classes[] = 'sidebar-position-right';
+                break;
+            default:
+                $classes[] = 'no-sidebar';
+                break;
+        }
+    }
+    if(get_option('')) $classes[] = 'no-ads-on-smartphones';
+    if(get_option('')) $classes[] = 'no-ads-on-tablets';
+    // 判断是否为固定高度加载其样式
+    if(get_option('wf_use_fixed_height_index_posts')) $classes[] = 'fixed-height-index-posts';
+    // 加载导航方式
+    switch(get_option('wf_navigation_type')){
+        case 'infinite':
+            $classes[] = 'with-infinite-scroll';
+            break;
+        case 'infinite_button':
+            $classes[] = 'with-infinite-button';
+            break;
+        default:
+            break;
+    }
+    $classes[] = is_archive() || is_home() || get_option('page_fixed_width') == true ? 'page-fluid-width' : 'page-fixed-width';
+    
+    return $classes;
+}
 
-//移除顶部多余信息
+// 移除顶部多余信息
 remove_action('wp_head', 'index_rel_link');//当前文章的索引
 remove_action('wp_head', 'feed_links_extra', 3);// 额外的feed,例如category, tag页
 remove_action('wp_head', 'start_post_rel_link', 10, 0);// 开始篇
