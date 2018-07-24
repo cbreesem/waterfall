@@ -522,6 +522,17 @@ function pageSetup(){
             <option value="full">全尺寸</option>';
             break;
     }
+    $wf_no_limit_single_post_width = get_option('wf_no_limit_single_post_width');
+    switch ($wf_no_limit_single_post_width) {
+        case '0':
+            $wf_no_limit_single_post_width = '<option value="0" selected="selected">固定</option>
+            <option value="1">不固定</option>';
+            break;
+        case '1':
+            $wf_no_limit_single_post_width = '<option value="0">固定</option>
+            <option value="1" selected="selected">不固定</option>';
+            break;
+    }
     echo '<div class="wrap">
         <h1>页面设置</h1>
         '.$update.'
@@ -566,31 +577,23 @@ function pageSetup(){
         <h2 class="title">列表頁设置</h2>
         <table class="form-table">
             <tbody>
-                <tr>
-                    <th scope="row"><label for="default_category">页面显示元素</label></th>
-                    <td><input type="text" name="wf_keyworld" class="regular-text code"></td>
-                </tr>
-                <tr>
-                    <th scope="row"><label for="default_post_format">帖子摘录的长度</label></th>
-                    <td><input type="text" name="wf_beian" class="regular-text code"></td></td>
-                </tr>
+
             </tbody>
         </table>
         <h2 class="title">內容頁设置</h2>
         <table class="form-table">
             <tbody>
                 <tr>
-                    <th scope="row"><label for="default_post_format">帖子摘录的长度</label></th>
-                    <td><input type="text" name="wf_beian" class="regular-text code"></td></td>
+                    <th scope="row"><label for="default_category">单页内容宽度是否固定</label></th>
+                    <td><select class="select" name="wf_no_limit_single_post_width">
+                        '.$wf_no_limit_single_post_width.'
+                    </select></td>
                 </tr>
                 <tr>
                     <th scope="row"><label for="default_category">文章展示寬度</label></th>
-                    <td><input type="text" name="wf_single_post_maximum_width" class="regular-text code"></td>
+                    <td><input type="text" name="wf_single_post_maximum_width" class="regular-text code" value="'.get_option('wf_single_post_maximum_width').'"></td>
                 </tr>
-                <tr>
-                    <th scope="row"><label for="default_post_format">帖子摘录的长度</label></th>
-                    <td><input type="text" name="wf_beian" class="regular-text code"></td></td>
-                </tr>
+
             </tbody>
         </table>
         <p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="保存更改"></p>
