@@ -64,7 +64,7 @@ function shortcode_os_featured_slider($atts){
     $osetin_featured_posts_query = new WP_Query( $args );
     $html = '<div class="featured-posts-slider-w featured-posts hidden-xs hidden-sm">';
         $html.= '<div class="featured-posts-slider-i">';
-            $html.= '<div class="featured-posts-label">'.__('Featured', 'pluto').'</div>';
+            $html.= '<div class="featured-posts-label">'.__('内容精选', 'pluto').'</div>';
             $html.= '<div class="featured-posts-slider-contents side-padded-content">';
                 while ($osetin_featured_posts_query->have_posts()) : $osetin_featured_posts_query->the_post();
                     $html.= os_load_template_part( 'featured-content', get_post_format() );
@@ -79,9 +79,7 @@ function shortcode_os_featured_slider($atts){
     $html.= '</div>';
     return $html;
 }
-add_shortcode( 'os_featured_slider', 'shortcode_os_featured_slider' );
-
-
+add_shortcode('os_featured_slider', 'shortcode_os_featured_slider');
 
 // Featured Posts Carousel shortcode
 function shortcode_os_featured_carousel($atts){

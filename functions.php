@@ -181,15 +181,14 @@ function widgetsInit() {
 add_action('widgets_init', 'widgetsInit');
 
 function os_the_primary_sidebar($masonry=false){
-    // $condition = $masonry ? (os_get_show_sidebar_on_masonry() == true) : true;
-    $condition = true;
-    if((get_field('sidebar_position', 'option') != "none") && is_active_sidebar( 'sidebar-1' ) && $condition){
+    $condition = $masonry ? get_option('wf_show_sidebar_on_index') : true;
+    if(get_option('wf_sidebar_position') != "none" && is_active_sidebar( 'sidebar-1' )){
         $sidebar = dynamic_sidebar('sidebar-1');
         echo '<div class="primary-sidebar-wrapper">
-            <div id="primary-sidebar" class="primary-sidebar widget-area" role="complementary">
-                '.$sidebar.'
-            </div>
-        </div>';
+                <div id="primary-sidebar" class="primary-sidebar widget-area" role="complementary">
+                    '.$sidebar.'
+                </div>
+            </div>';
     }
 }
 // 添加页面菜单class
@@ -251,8 +250,10 @@ function menuBodyClass($classes){
                 break;
         }
     }
-    if(get_option('')) $classes[] = 'no-ads-on-smartphones';
-    if(get_option('')) $classes[] = 'no-ads-on-tablets';
+    // 加载手机广告样式
+    if(!get_option('wf_enable_ads_on_smartphones')) $classes[] = 'no-ads-on-smartphones';
+    // 加载平板广告样式
+    if(!get_option('wf_enable_ads_on_tablets')) $classes[] = 'no-ads-on-tablets';
     // 判断是否为固定高度加载其样式
     if(get_option('wf_use_fixed_height_index_posts')) $classes[] = 'fixed-height-index-posts';
     // 加载导航方式

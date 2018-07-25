@@ -17,7 +17,7 @@
 	}
 	if (have_posts())
 ?>
-	<?php //os_the_primary_sidebar(true); ?>
+	<?php os_the_primary_sidebar(true); ?>
 	<div class="main-content-i">
 		<?php
 			$template = get_option('wf_layout_type');
