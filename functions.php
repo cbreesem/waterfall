@@ -145,6 +145,40 @@ function createActors(){
     ));
 }
 
+if(!function_exists('waterfallSetup')){
+
+    function waterfallSetup(){
+        add_theme_support( 'automatic-feed-links' );
+        add_theme_support( "custom-header" );
+        add_theme_support( "custom-background" );
+        add_editor_style();
+
+        add_theme_support( 'post-thumbnails' );
+        set_post_thumbnail_size( 672, 372, false );
+        add_image_size( 'pluto-full-width', 1038, 576, false );
+        add_image_size( 'pluto-index-width', 400, 700, false );
+        add_image_size( 'pluto-fixed-height', 400, 300, true );
+        add_image_size( 'pluto-fixed-height-image', 400, 700, true );
+        add_image_size( 'pluto-top-featured-post', 200, 150, true );
+        add_image_size( 'pluto-carousel-post', 600, 400, true );
+
+        register_nav_menus(array('side_menu' => __( 'Side menu', 'WaterFall' )));
+
+        add_theme_support('html5', array('search-form', 'comment-form', 'comment-list'));
+
+        add_theme_support('post-formats', array('aside','image','video','audio','quote','link','gallery'));
+
+        function searchFilter($query) {
+            if ($query->is_search) {
+                $query->set('post_type', 'post');
+            }
+            return $query;
+        }
+        add_filter('pre_get_posts','searchFilter');
+    }
+}
+add_action('after_setup_theme', 'waterfallSetup');
+
 /**
  * Register Pluto widget areas.
  */
@@ -182,7 +216,7 @@ add_action('widgets_init', 'widgetsInit');
 
 function os_the_primary_sidebar($masonry=false){
     $condition = $masonry ? get_option('wf_show_sidebar_on_index') : true;
-    if(get_option('wf_sidebar_position') != "none" && is_active_sidebar( 'sidebar-1' )){
+    if(get_option('wf_sidebar_position') != "none" && is_active_sidebar( 'sidebar-1' ) && $condition){
         $sidebar = dynamic_sidebar('sidebar-1');
         echo '<div class="primary-sidebar-wrapper">
                 <div id="primary-sidebar" class="primary-sidebar widget-area" role="complementary">

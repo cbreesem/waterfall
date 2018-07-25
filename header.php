@@ -37,18 +37,16 @@
 </head>
 <body <?php body_class(); ?>>
 	<div class="menu-block">
-	<?php if(get_option('wf_menu_position') == "top"): //如果是顶部菜单 ?>
-	<?php if(get_current_menu_style() == 'v2'){ //判断菜单版本 ?>
+	<?php if(get_option('wf_menu_position') == "top"): //顶部菜单代码段 ?>
+	<?php if(get_option('wf_menu_style') == 'v2'){ //顶部菜单风格2 ?>
 		<div class="menu-inner-w">
 			<div class="logo">
-				<a href="<?php echo esc_url(home_url('/')); ?>">
-					<?php if(get_option('wf_logo_image')): ?>
-						<img src="<?php _e(get_option('wf_logo_image')); ?>" alt="<?php _e(get_option('wf_logo_text')); ?>" title="<?php _e(get_option('wf_logo_text')); ?>">
-					<?php endif; ?>
-					<?php if(get_option('wf_logo_image')): ?>
-						<span><?php bloginfo('name'); ?></span>
-					<?php endif; ?>
-				</a>
+				<?php
+				echo '<a href="'.esc_url(home_url('/')).'">';
+				if(get_option('wf_logo_image')) echo '<img src="'.get_option('wf_logo_image').'" alt="'.get_option('wf_logo_text').'"/>';
+				if(get_option('wf_logo_text')) echo '<span>'.get_option('wf_logo_text').'</span>';
+				echo '</a>';
+				?>
 			</div>
 		<?php wp_nav_menu(array('theme_location'  => 'side_menu', 'fallback_cb' => false, 'container_class' => 'os_menu')); ?>
 			<div class="menu-search-form-w">
@@ -58,20 +56,18 @@
 				<?php if( function_exists('zilla_social') ) zilla_social(); ?>
 			</div>
 		</div>
-	<?php }else{ ?>
+	<?php }else{ //顶部菜单风格1?>
 		<div class="menu-inner-w">
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo">
-							<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
-							<?php if(get_option('wf_logo_image')): ?>
-								<img src="<?php _e(get_option('wf_logo_image')); ?>" alt="<?php _e(get_option('wf_logo_text')); ?>" title="<?php _e(get_option('wf_logo_text')); ?>">
-							<?php endif; ?>
-							<?php if(get_option('wf_logo_text')): ?>
-								<span><?php _e(get_option('wf_logo_text')); ?></span>
-							<?php endif; ?>
-							</a>
+							<?php
+							echo '<a href="'.esc_url(home_url('/')).'">';
+							if(get_option('wf_logo_image')) echo '<img src="'.get_option('wf_logo_image').'" alt="'.get_option('wf_logo_text').'"/>';
+							if(get_option('wf_logo_text')) echo '<span>'.get_option('wf_logo_text').'</span>';
+							echo '</a>';
+							?>
 						</div>
 					</div>
 					<div class="col-sm-4">
@@ -84,26 +80,24 @@
 			</div>
 		</div>
 		<?php wp_nav_menu(array('theme_location'  => 'side_menu', 'fallback_cb' => false, 'container_class' => 'os_menu')); ?>
-	<?php } ?>
-	<?php else: ?>
+	<?php } // 顶部菜单结束 ?>
+	<?php else: // 菜单在左边的代码段?>
 		<div class="logo">
-			<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
-			<?php if(get_option('wf_logo_image')): ?>
-				<img src="<?php _e(get_option('wf_logo_image')); ?>" alt="<?php _e(get_option('wf_logo_text')); ?>" title="<?php _e(get_option('wf_logo_text')); ?>"/>
-			<?php endif; ?>
-			<?php if(get_option('wf_logo_text')): ?>
-				<span><?php _e(get_option('wf_logo_text')); ?></span>
-			<?php endif; ?>
-			</a>
+			<?php
+			echo '<a href="'.esc_url(home_url('/')).'">';
+			if(get_option('wf_logo_image')) echo '<img src="'.get_option('wf_logo_image').'" alt="'.get_option('wf_logo_text').'"/>';
+			if(get_option('wf_logo_text')) echo '<span>'.get_option('wf_logo_text').'</span>';
+			echo '</a>';
+			?>
 		</div>
-			<?php if(get_option('wf_search_position') == 'above_menu'){ get_search_form(); } ?>
+			<?php if(get_option('wf_search_position') == 'above_menu') get_search_form(); ?>
 			<div class="divider"></div>
 			<?php wp_nav_menu(array('theme_location'  => 'side_menu', 'fallback_cb' => false, 'container_class' => 'os_menu')); ?>
-			<?php if(get_option('wf_search_position') == 'under_menu'){ get_search_form(); }  ?>
+			<?php if(get_option('wf_search_position') == 'under_menu') get_search_form();  ?>
 			<div class="divider"></div>
-			<?php if(get_option('wf_search_position') == 'above_social'){ get_search_form(); } ?>
+			<?php if(get_option('wf_search_position') == 'above_social') get_search_form(); ?>
 			<?php if(function_exists('zilla_social') ) zilla_social(); ?>
-			<?php if(get_option('wf_search_position') == 'under_social'){ get_search_form(); } ?>
+			<?php if(get_option('wf_search_position') == 'under_social') get_search_form(); ?>
 			<?php if ( is_active_sidebar( 'sidebar-2' ) ) : ?>
 				<div class="under-menu-sidebar-wrapper">
 					<?php dynamic_sidebar( 'sidebar-2' ); ?>
@@ -115,15 +109,16 @@
 	<div class="menu-toggler-w">
 		<a href="#" class="menu-toggler">
 			<i class="fa os-icon-bars"></i>
-			<span class="menu-toggler-label"><?php _e('菜单', 'pluto') ?></span>
+			<span class="menu-toggler-label"><?php _e('菜单') ?></span>
 		</a>
 		<?php if(get_option('wf_show_sidebar_on_mobile')){ ?>
 			<a href="#" class="sidebar-toggler">
 				<i class="fa os-icon-bars"></i>
-				<span class="sidebar-toggler-label"><?php _e('边栏', 'pluto') ?></span>
+				<span class="sidebar-toggler-label"><?php _e('边栏') ?></span>
 			</a>
 		<?php } ?>
 		<?php //顶部菜单右侧标志和名称部分 ?>
+		
 		<a href="<?php echo esc_url(home_url('/')); ?>" class="logo">
 			<?php if(get_option('wf_logo_image')): ?>
 				<img src="<?php _e(get_option('wf_logo_image')); ?>" alt="">

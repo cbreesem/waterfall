@@ -291,7 +291,7 @@ function pageSetup(){
     $option = unserialize(get_option('wf_show_element_on_index'));
     $element = array('share'=>'分享','category'=>'分类','title'=>'标题','excerpt'=>'摘录','datetime'=>'发布日期','count'=>'计数器','author'=>'作者');
     foreach ($element as $k => $v) {
-        $is_select = in_array($k, $option) ? 'checked="checked"' : '';
+        $is_select = is_array($option) && in_array($k, $option) ? 'checked="checked"' : '';
         $show_element_on_index .= '<input type="checkbox" name="wf_show_element_on_index[]" value="'.$k.'" '.$is_select.'>'.$v.' ';
     }
 
