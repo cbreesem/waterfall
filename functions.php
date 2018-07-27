@@ -221,14 +221,12 @@ add_action( 'wp_head', 'add_ajax_library' );
  * Adds the WordPress Ajax Library to the frontend.
  */
 function add_ajax_library() {
-
     $html = '<script type="text/javascript">';
         $html .= 'var ajaxurl = "' . admin_url( 'admin-ajax.php' ) . '"';
     $html .= '</script>';
-
     echo $html;
-
 } // end add_ajax_library
+require_once dirname( __FILE__ ) . '/inc/infiniteScroll.php';
 
 function os_the_primary_sidebar($masonry=false){
     $condition = $masonry ? get_option('wf_show_sidebar_on_index') : true;
