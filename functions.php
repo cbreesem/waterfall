@@ -203,7 +203,7 @@ function widgetsInit() {
       'after_title'   => '</h1>',
     ) );
     register_sidebar( array(
-      'name'          => __( '顶部栏目', 'pluto' ),
+      'name'          => __( '顶部栏目'),
       'id'            => 'sidebar-3',
       'description'   => __( 'Sidebar which appears on the top of the page.', 'pluto' ),
       'before_widget' => '<aside id="%1$s" class="widget %2$s">',
