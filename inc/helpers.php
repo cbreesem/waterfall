@@ -65,6 +65,7 @@ function listMediaContent($size=false, $forse_single=false){
 function outputPostThumbnail($size=false, $forse_single=false){
     if (has_post_thumbnail()) {
         if(is_single() || $forse_single){
+            
             echo '<div class="post-media-body">
                     <div class="figure-link-w">
                         <a href="'.wp_get_attachment_url(get_post_thumbnail_id()).'" class="figure-link os-lightbox-activator">
@@ -79,18 +80,14 @@ function outputPostThumbnail($size=false, $forse_single=false){
                     </div>
                 </div>';
         }else{
-            
             if ($size != false) {
                 $img_html = get_the_post_thumbnail(get_the_ID(), $size);
             }else{
-                
                 if(basename(get_page_template()) == 'page-blog.php'){
-                    
                     $img_html =  get_the_post_thumbnail(get_the_ID(), 'full');
                 } else {
                     // 是否固定元素块高度
                     $img_html = get_option('wf_use_fixed_height_index_posts') == true ? get_the_post_thumbnail(get_the_ID(), 'pluto-fixed-height') : get_the_post_thumbnail(get_the_ID(), 'pluto-index-width');
-                    echo $img_html;
                 }
                 $shade_html = get_option('wf_image_hover_effect') == true ? '' : '<div class="figure-shade"></div><i class="figure-icon os-icon-thin-044_visability_view_watch_eye"></i>';
                 $os_link = get_post_format() == 'link' ? get_field('external_link') : get_permalink();
