@@ -3,7 +3,7 @@
         <div class="post-body">
             <?php
                 listTopShareButtons();
-                listMediaContent();
+                getMediaContent();
                 $element = unserialize(get_option('wf_show_element_on_index'));
                 if(in_array('title', $element) || in_array('category', $element) || in_array('excerpt', $element)){
                     echo '<div class="post-content-body">';

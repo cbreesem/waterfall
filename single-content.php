@@ -1,22 +1,9 @@
 <article id="post-<?php the_ID(); ?>" <?php post_class('pluto-page-box'); ?>>
     <div class="post-body">
         <div class="single-post-top-features">
-            <?php //osetin_single_top_social_share(); ?>
-            <?php if(is_single()): ?>
-                <?php if(get_field('disable_reading_mode', 'option') != TRUE): ?>
-                <a href="#" class="single-post-top-qr">
-                    <i class="fa os-icon-qrcode"></i>
-                    <span class="caption"><?php _e('在手机上查看', 'pluto'); ?></span>
-                </a>
-                <a href="#" class="single-post-top-reading-mode hidden-xs" data-message-on="<?php _e('进入全屏模式', 'pluto'); ?>" data-message-off="<?php _e('Exit Reading Mode', 'pluto'); ?>">
-                    <i class="fa os-icon-eye"></i>
-                    <span><?php _e('进入全屏模式', 'pluto'); ?></span>
-                </a>
-                <?php endif; ?>
-            <?php endif; ?>
+            <?php listTopShareButtons(); ?>
         </div>
-        <h1 class="post-title entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a> (<?php $year = get_the_terms($id, 'year'); echo $year[0]->name;?>)</h1>
-        <?php edit_post_link( __( 'Edit', 'twentyfourteen' ), '<div class="edit-link">', '</div>' ); ?>
+        <h1 class="post-title entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a> <small>(<?php $year = get_the_terms($id, 'year'); echo $year[0]->name;?>年)</small></h1>
 
         <div class="post-meta-top entry-meta">
             <?php if(is_rtl()): ?>
@@ -28,75 +15,46 @@
             <?php endif; ?>
         </div>
 
-        <?php if(is_single()){ ?>
-            <?php if(get_field('hide_featured_image_on_single_post', 'option') != true && (get_post_format() != 'quote')){ ?>
-                <?php osetin_get_media_content(false, true); ?>
-            <?php } ?>
-        <?php }else{ ?>
-            <?php osetin_get_media_content('pluto-full-width', true); ?>
-        <?php } ?>
-
-        <?php if(get_post_meta($post->ID, "playdate", $single = true)){ ?>
-        <div class="post-content">上 映：<?php echo get_post_meta($post->ID, "playdate", $single = true); ?></div>
-        <?php } ?>
-        <?php if(get_post_meta($post->ID, "duration", $single = true)){ ?>
-        <div class="post-content">片 长：<?php echo get_post_meta($post->ID, "duration", $single = true); ?></div>
-        <?php } ?>
-        <?php $language = get_the_terms($id, 'language'); ?>
-        <?php if($language){ ?>
-        <div class="post-content">语 言：
-            <?php foreach($language as $term){ echo '<a href="'.get_term_link( $term ).'">'.$term->name.'</a> '; } ?>
-        </div>
-        <?php } ?>
-        <?php $district = get_the_terms($id, 'district'); ?>
-        <?php if($district){ ?>
-        <div class="post-content">地 区：
-            <?php foreach($district as $term){ echo '<a href="'.get_term_link( $term ).'">'.$term->name.'</a> '; } ?>
-        </div>
-        <?php } ?>
-        <?php if(get_post_meta($post->ID, "alias", $single = true)){ ?>
-        <div class="post-content">别 名：<?php echo get_post_meta($post->ID, "alias", $single = true); ?></div>
-        <?php } ?>
         <?php
-            $url = get_post_meta($post->ID, "douban", $single = true);
-            $html = file_get_contents($url);
-            $preg = '/<strong class="ll rating_num" property="v:average">([0-9]{1,2})+(\.[0-9]{1,2})<\/strong>/';
-            preg_match($preg, $html, $arr);
-            $preg = '/([0-9]{1,2})+(\.[0-9]{1,2})/';
-            preg_match($preg, $arr[0], $arr);
-            $score = $arr[0];
-            $preg = '/<span property="v:votes">[0-9]{1,6}<\/span>/';
-            preg_match($preg, $html, $arr);
-            $preg = '/[0-9]{1,6}/';
-            preg_match($preg, $arr[0], $arr);
-            $count = $arr[0];
+        if(is_single()){
+            if(get_option('wf_hide_featured_image_on_single_post') != true && (get_post_format() != 'quote')){
+                getMediaContent(false, true);
+            }
+        }else{
+            getMediaContent('pluto-full-width', true);
+        }
+        if(get_post_meta($post->ID, "playdate", $single = true)){
+            echo '<div class="post-content">上 映：'.get_post_meta($post->ID, "playdate", $single = true).'</div>';
+        }
+        if(get_post_meta($post->ID, "duration", $single = true)){
+            echo '<div class="post-content">片 长：'.get_post_meta($post->ID, "duration", $single = true).'</div>';
+        }
+        $language = get_the_terms($id, 'language');
+        if($language){
+            echo '<div class="post-content">语 言：';
+            foreach($language as $term){ echo '<a href="'.get_term_link( $term ).'">'.$term->name.'</a> '; }
+            echo '</div>';
+        }
+        $district = get_the_terms($id, 'district');
+        if($district){
+            echo '<div class="post-content">地 区：';
+            foreach($district as $term){ echo '<a href="'.get_term_link( $term ).'">'.$term->name.'</a> '; }
+            echo '</div>';
+        }
+        if(get_post_meta($post->ID, "alias", $single = true)){
+            echo '<div class="post-content">别 名：'.get_post_meta($post->ID, "alias", $single = true).'</div>';
+        }
+        $douban_url = get_post_meta($post->ID, "douban", $single = true);
+        $douban_score = get_post_meta($post->ID, "douban_score", $single = true);
+        if($douban_url && $douban_score){
+            echo '<div class="post-content">豆 瓣：<a href="'.$douban_url.'">'.$douban_score.'分</a></div>';
+        }
+        $imdb_url = get_post_meta($post->ID, "imdb", $single = true);
+        $imdb_score = get_post_meta($post->ID, "imdb_score", $single = true);
+        if($douban_url && $douban_score){
+            echo '<div class="post-content">IMDB：<a href="'.$imdb_url.'">'.$imdb_score.'分</a></div>';
+        }
         ?>
-        <div class="post-content">豆 瓣：
-        <?php if($score){ ?>
-            <a href="<?php echo get_post_meta($post->ID, "douban", $single = true); ?>"><?php echo $score; ?>分</a> 来自<?php echo $count; ?>位豆瓣网友的评价</div>
-        <?php }else{ ?>
-            <a href="<?php echo get_post_meta($post->ID, "douban", $single = true); ?>">豆瓣网友们都很忙，没时间打分，去帮忙打个分吧！</a></div>
-        <?php } ?>
-        <?php
-            $url = get_post_meta($post->ID, "imdb", $single = true);
-            $html = file_get_contents($url);
-            $preg = '/<span itemprop="ratingValue">([0-9]{1,2})+(\.[0-9]{1,2})<\/span>/';
-            preg_match($preg, $html, $arr);
-            $preg = '/([0-9]{1,2})+(\.[0-9]{1,2})/';
-            preg_match($preg, $arr[0], $arr);
-            $score = $arr[0];
-            $preg = '/<span class="small" itemprop="ratingCount">([0-9]{1,3})+(\,[0-9]{1,3})<\/span>/';
-            preg_match($preg, $html, $arr);
-            $preg = '/([0-9]{1,3})+(\,[0-9]{1,3})/';
-            preg_match($preg, $arr[0], $arr);
-            $count = $arr[0];
-        ?>
-        <div class="post-content">IMDB：
-        <?php if($score){ ?>
-            <a href="<?php echo get_post_meta($post->ID, "imdb", $single = true); ?>"><?php echo $score; ?>分</a> 来自<?php echo $count; ?>位国际友人的评价</div>
-        <?php }else{ ?>
-            <a href="<?php echo get_post_meta($post->ID, "imdb", $single = true); ?>">国际友人们懒得打分</a></div>
-        <?php } ?>
         <?php $terms = get_the_terms($id, 'directors'); ?>
         <?php if(count($terms)){ ?>
         <div class="post-content">导 演：
@@ -125,7 +83,7 @@
         <div class="panel panel-default">
           <!-- Default panel contents -->
             <div class="panel-heading"><h4>剧情大纲</h4></div>
-            <div class="panel-body post-content entry-content"><?php  ?></div>
+            <div class="panel-body post-content entry-content"><?php the_content(); ?></div>
             <ul class="list-group">
         <?php
             $links = get_post_meta($post->ID, "links", $single = true);

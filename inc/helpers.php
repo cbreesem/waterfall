@@ -19,7 +19,7 @@ function listTopShareButtons(){
     }
 }
 /* 获取列表单元中的媒体内容 */
-function listMediaContent($size=false, $forse_single=false){
+function getMediaContent($size=false, $forse_single=false){
     switch (get_post_format()) {
         case 'video':
             global $wp_embed;
