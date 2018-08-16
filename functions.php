@@ -228,18 +228,7 @@ function add_ajax_library() {
 } // end add_ajax_library
 require_once dirname( __FILE__ ) . '/inc/infiniteScroll.php';
 
-function os_the_primary_sidebar($masonry=false){
-    $condition = $masonry ? get_option('wf_show_sidebar_on_index') : true;
-    if(get_option('wf_sidebar_position') != "none" && is_active_sidebar( 'sidebar-1' ) && $condition){
-        $sidebar = dynamic_sidebar('sidebar-1');
-        echo '<div class="primary-sidebar-wrapper">
-                <div id="primary-sidebar" class="primary-sidebar widget-area" role="complementary">
-                    '.$sidebar.'
-                </div>
-            </div>';
-    }
-}
-// 添加页面菜单class
+// 添加页面菜单css样式
 add_filter('body_class','menuBodyClass');
 function menuBodyClass($classes){
     // 判断菜单方位及风格加载其样式

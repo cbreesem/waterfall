@@ -1,8 +1,5 @@
 <article id="post-<?php the_ID(); ?>" <?php post_class('pluto-page-box'); ?>>
     <div class="post-body">
-        <div class="single-post-top-features">
-            <?php listTopShareButtons(); ?>
-        </div>
         <h1 class="post-title entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a> <small>(<?php $year = get_the_terms($id, 'year'); echo $year[0]->name;?>年)</small></h1>
 
         <div class="post-meta-top entry-meta">
@@ -54,34 +51,33 @@
         if($douban_url && $douban_score){
             echo '<div class="post-content">IMDB：<a href="'.$imdb_url.'">'.$imdb_score.'分</a></div>';
         }
+        $terms = get_the_terms($id, 'directors');
+        if(count($terms)){
+            echo '<div class="post-content">导 演：';
+            foreach($terms as $term){ echo '<a href="'.get_term_link( $term ).'">'.$term->name.'</a> '; }
+            echo '</div>';
+        }
+        $terms = get_the_terms($id, 'scriptwriters');
+        if(count($terms)){
+            echo '<div class="post-content">编 剧：';
+            foreach($terms as $term){ echo '<a href="'.get_term_link( $term ).'">'.$term->name.'</a> '; }
+            echo '</div>';
+        }
+        $terms = get_the_terms($id, 'actors');
+        if(count($terms)){
+            echo '<div class="post-content">主 演：';
+            foreach($terms as $term){ echo '<a href="'.get_term_link( $term ).'">'.$term->name.'</a> '; }
+            echo '</div>';
+        }
+        $terms = get_the_terms($id, 'label');
+        if(count($terms)){
+            echo '<div class="post-content">网友标注：';
+            foreach($terms as $term){ echo '<a href="'.get_term_link( $term ).'">'.$term->name.'</a> '; }
+            echo '</div>';
+        }
         ?>
-        <?php $terms = get_the_terms($id, 'directors'); ?>
-        <?php if(count($terms)){ ?>
-        <div class="post-content">导 演：
-            <?php foreach($terms as $term){ echo '<a href="'.get_term_link( $term ).'">'.$term->name.'</a> '; } ?>
-        </div>
-        <?php } ?>
-        <?php $terms = get_the_terms($id, 'scriptwriters'); ?>
-        <?php if(count($terms)){ ?>
-        <div class="post-content">编 剧：
-            <?php foreach($terms as $term){ echo '<a href="'.get_term_link( $term ).'">'.$term->name.'</a> '; } ?>
-        </div>
-        <?php } ?>
-        <?php $terms = get_the_terms($id, 'actors'); ?>
-        <?php if(count($terms)){ ?>
-        <div class="post-content">主 演：
-            <?php foreach($terms as $term){ echo '<a href="'.get_term_link( $term ).'">'.$term->name.'</a> '; } ?>
-        </div>
-        <?php } ?>
-        <?php $terms = get_the_terms($id, 'label'); ?>
-        <?php if(count($terms)){ ?>
-        <div class="post-content">网友标注：
-            <?php foreach($terms as $term){ echo '<a href="'.get_term_link( $term ).'">'.$term->name.'</a> '; } ?>
-        </div>
-        <?php } ?>
 
         <div class="panel panel-default">
-          <!-- Default panel contents -->
             <div class="panel-heading"><h4>剧情大纲</h4></div>
             <div class="panel-body post-content entry-content"><?php the_content(); ?></div>
             <ul class="list-group">
@@ -99,29 +95,8 @@
     </div>
     <div class="post-meta entry-meta">
         <div class="meta-like">
-            <?php // if( function_exists('zilla_likes') ) zilla_likes(); ?>
-            <?php os_facebook_like(); ?>
+
         </div>
         <div class="os_social-foot-w hidden-xs"><?php echo do_shortcode('[os_social_buttons]'); ?></div>
-    </div>
-
-    <div class="modal fade" id="qrcode-modal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header text-center">
-                    <h4 class="modal-title"><?php _e('SCAN THIS QR CODE WITH YOUR PHONE', 'pluto') ?></h4>
-                </div>
-                <div class="modal-body">
-                    <div class="text-center">
-                        <div id="qrcode"></div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="text-center">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true"><?php _e('Close', 'pluto'); ?></button>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </article>

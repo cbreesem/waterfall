@@ -122,4 +122,15 @@ function loadTemplatePart($template_name, $part_name=null) {
     return $var;
 }
 
+/* 主侧边栏设定 */
+function defindPrimarySidebar($masonry=false){
+    $condition = $masonry ? get_option('wf_show_sidebar_on_index') : true;
+    if(get_option('wf_sidebar_position') != "none" && is_active_sidebar('sidebar-1') && $condition){
+        echo '<div class="primary-sidebar-wrapper">
+                <div id="primary-sidebar" class="primary-sidebar widget-area" role="complementary">';
+        dynamic_sidebar('sidebar-1');
+        echo '</div>
+            </div>';
+    }
+}
 ?>
