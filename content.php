@@ -8,7 +8,12 @@
                 if(in_array('title', $element) || in_array('category', $element) || in_array('excerpt', $element)){
                     echo '<div class="post-content-body">';
 
-                    if(in_array('title', $element)) echo '<h4 class="post-title entry-title"><a href="'.esc_url(get_permalink()).'">'.the_title().'</a></h4>';
+                    if(in_array('title', $element)){
+                        // get_the_terms();
+                        echo '<h4 class="post-title entry-title"><a href="'.esc_url(get_permalink()).'">';
+                        the_title();
+                        echo '</a></h4>';
+                    }
                     if(in_array('category', $element)) echo get_the_category_list();
                     if(in_array('excerpt', $element)) echo '<div class="post-content entry-summary">'.wp_trim_words(get_the_excerpt(), get_option('wf_index_excerpt_length'), '').'</div>';
 

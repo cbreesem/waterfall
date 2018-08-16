@@ -29,7 +29,7 @@ get_header(); ?>
                     <?php
                     $os_current_box_counter = 1; $os_ad_block_counter = 0;
                     while ( have_posts() ) : the_post();
-                        get_template_part( $template_part, get_post_format() );
+                        get_template_part($template_part, get_post_format());
                         // os_ad_between_posts();
                     endwhile; ?>
                 </div>
