@@ -121,7 +121,6 @@ function loadTemplatePart($template_name, $part_name=null) {
     ob_end_clean();
     return $var;
 }
-
 /* 主侧边栏设定 */
 function defindPrimarySidebar($masonry=false){
     $condition = $masonry ? get_option('wf_show_sidebar_on_index') : true;
@@ -131,6 +130,29 @@ function defindPrimarySidebar($masonry=false){
         dynamic_sidebar('sidebar-1');
         echo '</div>
             </div>';
+    }
+}
+function getPostViews($postID){
+    $count_key = 'post_views_count';
+    $count = get_post_meta($postID, $count_key, true);
+    if($count == ''){
+        delete_post_meta($postID, $count_key);
+        add_post_meta($postID, $count_key, '0');
+        return " 0 ";
+    }
+        return $count;
+    }
+
+function setPostViews($postID) {
+    $count_key = 'post_views_count';
+    $count = get_post_meta($postID, $count_key, true);
+    if($count == ''){
+        $count = 0;
+        delete_post_meta($postID, $count_key);
+        add_post_meta($postID, $count_key, '0');
+    }else{
+        $count++;
+        update_post_meta($postID, $count_key, $count);
     }
 }
 ?>
