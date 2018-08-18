@@ -3,7 +3,6 @@
         <div class="post-body">
             <?php
                 $year = get_the_terms(get_the_ID(),'year');
-                print_r($yesr);
                 listTopShareButtons();
                 getMediaContent();
                 $element = unserialize(get_option('wf_show_element_on_index'));
@@ -11,10 +10,9 @@
                     echo '<div class="post-content-body">';
 
                     if(in_array('title', $element)){
-                        echo '<h4 class="post-title entry-title"><a href="'.esc_url(get_permalink()).'">';
+                        echo '<h4 class="post-title entry-title"> '.$year[0]->name.'年 | <a href="'.esc_url(get_permalink()).'">';
                         the_title();
                         echo '</a></h4>';
-                        echo $year[0]->name;
                     }
                     if(in_array('category', $element)) echo get_the_category_list();
                     if(in_array('excerpt', $element)) echo '<div class="post-content entry-summary">'.wp_trim_words(get_the_excerpt(), get_option('wf_index_excerpt_length'), '').'</div>';

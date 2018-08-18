@@ -1,7 +1,14 @@
 <article id="post-<?php the_ID(); ?>" <?php post_class('pluto-page-box'); ?>>
     <div class="post-body">
-        <h1 class="post-title entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a> <small>(<?php $year = get_the_terms($id, 'year'); echo $year[0]->name;?>年)</small></h1>
-
+        <h1 class="post-title entry-title"><?php the_title(); ?> <small>(<?php $year = get_the_terms($id, 'year'); echo $year[0]->name;?>年)</small></h1>
+        <?php
+        $terms = get_the_terms($id, 'label');
+        if(count($terms)){
+            echo '<h5>';
+            foreach($terms as $term){ echo $term->name.'  '; }
+            echo '</h5>';
+        }
+        ?>
         <div class="post-meta-top entry-meta">
             <?php if(is_rtl()): ?>
                 <?php echo get_the_category_list(); ?>
@@ -69,12 +76,12 @@
             foreach($terms as $term){ echo '<a href="'.get_term_link( $term ).'">'.$term->name.'</a> '; }
             echo '</div>';
         }
-        $terms = get_the_terms($id, 'label');
-        if(count($terms)){
-            echo '<div class="post-content">网友标注：';
-            foreach($terms as $term){ echo '<a href="'.get_term_link( $term ).'">'.$term->name.'</a> '; }
-            echo '</div>';
-        }
+        // $terms = get_the_terms($id, 'label');
+        // if(count($terms)){
+        //     echo '<div class="post-content">网友标注：';
+        //     foreach($terms as $term){ echo '<a href="'.get_term_link( $term ).'">'.$term->name.'</a> '; }
+        //     echo '</div>';
+        // }
         ?>
 
         <div class="panel panel-default">

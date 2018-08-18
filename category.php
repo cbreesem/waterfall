@@ -1,11 +1,6 @@
 <?php
 /**
- * The template for displaying Category pages
- *
- * @link http://codex.wordpress.org/Template_Hierarchy
- *
- * @package WordPress
- * @since Pluto 1.0
+ * 分类页面
  */
 
 get_header(); ?>
