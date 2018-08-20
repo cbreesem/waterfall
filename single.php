@@ -11,7 +11,7 @@
                 <div class="top-sidebar-wrapper"><?php dynamic_sidebar('sidebar-3'); ?></div>
             <?php } ?>
             <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
-                <?php get_template_part( 'single-content', get_post_format() ); ?>
+                <?php get_template_part('single-content', get_post_format() ); ?>
                 <?php wp_link_pages(); ?>
                 <div class="post-navigation-classic">
                     <div class="row">
@@ -19,7 +19,7 @@
                             <?php if (get_adjacent_post(false, '', true)): ?>
                             <div class="post-navigation-previous">
                                 <div class="arrow"><i class="fa os-icon-angle-left"></i></div>
-                                <div class="caption"><?php _e('Previous Post', 'pluto') ?></div>
+                                <div class="caption"><?php _e('上一部', 'pluto') ?></div>
                                 <div class="navi-link"><?php previous_post_link('%link'); ?></div>
                             </div>
                             <?php endif; ?>
@@ -28,7 +28,7 @@
                             <?php if (get_adjacent_post(false, '', false)): ?>
                             <div class="post-navigation-next">
                                 <div class="arrow"><i class="fa os-icon-angle-right"></i></div>
-                                <div class="caption"><?php _e('Next Post', 'pluto') ?></div>
+                                <div class="caption"><?php _e('下一部', 'pluto') ?></div>
                                 <div class="navi-link"><?php next_post_link('%link'); ?></div>
                             </div>
                             <?php endif; ?>

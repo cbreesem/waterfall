@@ -121,7 +121,7 @@ function loadTemplatePart($template_name, $part_name=null) {
     ob_end_clean();
     return $var;
 }
-/* 主侧边栏设定 */
+/* 主侧边栏调用 */
 function defindPrimarySidebar($masonry=false){
     $condition = $masonry ? get_option('wf_show_sidebar_on_index') : true;
     if(get_option('wf_sidebar_position') != "none" && is_active_sidebar('sidebar-1') && $condition){
@@ -132,6 +132,7 @@ function defindPrimarySidebar($masonry=false){
             </div>';
     }
 }
+/* 获取阅读次数 */
 function getPostViews($postID){
     $count_key = 'post_views_count';
     $count = get_post_meta($postID, $count_key, true);
@@ -141,8 +142,8 @@ function getPostViews($postID){
         return " 0 ";
     }
         return $count;
-    }
-
+}
+/* 保存阅读次数 */
 function setPostViews($postID) {
     $count_key = 'post_views_count';
     $count = get_post_meta($postID, $count_key, true);
@@ -155,4 +156,3 @@ function setPostViews($postID) {
         update_post_meta($postID, $count_key, $count);
     }
 }
-?>

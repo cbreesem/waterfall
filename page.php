@@ -2,16 +2,16 @@
 get_header(); ?>
 
 <div class="main-content-w">
-	<?php os_the_primary_sidebar(); ?>
+	<?php defindPrimarySidebar(); ?>
 	<div class="main-content-i">
 		<div class="content padded-top padded-bottom">
 			<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 				<div id="page-<?php the_ID(); ?>" <?php post_class(); ?>>
-					<div class="post-content"><?php the_content(); ?></div>
+				<?php get_template_part('page-content', get_post_format() ); ?>
 				</div>
 			<?php endwhile; endif; ?>
 		</div>
-		<?php os_footer(); ?>
+		<?php require_once(get_template_directory().'/inc/copyright.php') ?>
 	</div>
 </div>
 <?php
