@@ -7,6 +7,7 @@
     <?php defindPrimarySidebar(); ?>
     <div class="main-content-i">
         <div class="content side-padded-content reading-mode-content">
+            <?php setPostViews(get_the_ID());  ?>
             <?php if(is_active_sidebar('sidebar-3')){ ?>
                 <div class="top-sidebar-wrapper"><?php dynamic_sidebar('sidebar-3'); ?></div>
             <?php } ?>

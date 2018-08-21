@@ -49,6 +49,10 @@
                 }
                 echo '</div>';
             }
+            echo '<div class="post-meta entry-meta">';
+            echo '<div class="meta-view-count">资源类型</div>';
+            the_tags('<ul style="list-style:none;"><li style="float:left;padding:5px;">','</li><li style="float:left;padding:5px;">','</li></ul>');
+            echo '</div>';
         ?>
     </article>
 </div>
