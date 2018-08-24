@@ -14,20 +14,20 @@ require_once dirname( __FILE__ ).'/inc/loadScript.php';
 require_once get_template_directory().'/inc/less2Css.php';
 require_once get_template_directory().'/inc/lessVariables.php';
 
-add_action('init', 'html_page_permalink', -1);
-function html_page_permalink() {
-    global $wp_rewrite;
-    if ( !strpos($wp_rewrite->get_page_permastruct(), '.html')){
-        $wp_rewrite->page_structure = $wp_rewrite->page_structure.'.html';
-    }
-}
-function nice_trailingslashit($string, $type_of_url) {
-    if($type_of_url != 'single' && $type_of_url != 'page'){
-        $string = trailingslashit($string);
-    }
-    return $string;
-}
-add_filter('user_trailingslashit', 'nice_trailingslashit', 10, 2);
+// add_action('init', 'html_page_permalink', -1);
+// function html_page_permalink() {
+//     global $wp_rewrite;
+//     if ( !strpos($wp_rewrite->get_page_permastruct(), '.html')){
+//         $wp_rewrite->page_structure = $wp_rewrite->page_structure.'.html';
+//     }
+// }
+// function nice_trailingslashit($string, $type_of_url) {
+//     if($type_of_url != 'single' && $type_of_url != 'page'){
+//         $string = trailingslashit($string);
+//     }
+//     return $string;
+// }
+// add_filter('user_trailingslashit', 'nice_trailingslashit', 10, 2);
 
 // 自定义排序
 function orderCustom( $query ) {
