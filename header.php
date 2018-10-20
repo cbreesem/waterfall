@@ -32,7 +32,7 @@
 	<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/respond.min.js"></script>
 	<![endif]-->
 <?php wp_head(); ?>
-<?php _e(str_replace('\\','',get_option('wf_statistics'))); ?>
+
 <?php _e(str_replace('\\','',get_option('wf_baidu_push'))); ?>
 
 </head>
