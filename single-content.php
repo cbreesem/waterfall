@@ -59,19 +59,19 @@
             echo '<div class="post-content">IMDB：<a href="'.$imdb_url.'">'.$imdb_score.'分</a></div>';
         }
         $terms = get_the_terms($id, 'directors');
-        if(count($terms)){
+        if($terms){
             echo '<div class="post-content">导 演：';
             foreach($terms as $term){ echo '<a href="'.get_term_link( $term ).'">'.$term->name.'</a> '; }
             echo '</div>';
         }
         $terms = get_the_terms($id, 'scriptwriters');
-        if(count($terms)){
+        if($terms){
             echo '<div class="post-content">编 剧：';
             foreach($terms as $term){ echo '<a href="'.get_term_link( $term ).'">'.$term->name.'</a> '; }
             echo '</div>';
         }
         $terms = get_the_terms($id, 'actors');
-        if(count($terms)){
+        if($terms){
             echo '<div class="post-content">主 演：';
             foreach($terms as $term){ echo '<a href="'.get_term_link( $term ).'">'.$term->name.'</a> '; }
             echo '</div>';
@@ -87,7 +87,7 @@
         <div class="panel panel-default">
             <div class="panel-heading"><h4>剧情大纲</h4></div>
             <div class="panel-body post-content entry-content"><?php the_content(); ?></div>
-            <ul class="list-group">
+            <ul class="list-group" style="list-style:none;">
         <?php
             $links = get_post_meta($post->ID, "links", $single = true);
             $links = explode('|,|', $links);
@@ -102,8 +102,9 @@
     </div>
     <div class="post-meta entry-meta">
         <div class="meta-like">
-
+            <?php echo getPostViews(get_the_ID()); ?> 次浏览
         </div>
-        <div class="os_social-foot-w hidden-xs"><?php echo do_shortcode('[os_social_buttons]'); ?></div>
+        <div class="os_social-foot-w hidden-xs"><?php //echo do_shortcode('[os_social_buttons]'); ?></div>
     </div>
+
 </article>
