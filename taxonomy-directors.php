@@ -6,7 +6,6 @@
 get_header(); ?>
 
 <div class="main-content-w">
-55555555555555555555555555555
     <?php defindPrimarySidebar(); ?>
     <div class="main-content-i">
         <?php if(have_posts()): ?>
